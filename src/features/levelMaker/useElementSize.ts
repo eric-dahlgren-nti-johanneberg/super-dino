@@ -1,10 +1,4 @@
-import {
-  RefObject,
-  useCallback,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { RefObject, useCallback, useLayoutEffect, useState } from 'react';
 
 // See: https://usehooks-ts.com/react-hook/use-event-listener
 import { useEventListener } from './useEventListener';
@@ -14,14 +8,10 @@ interface Size {
   height: number;
 }
 
-function useElementSize<T extends HTMLElement = HTMLDivElement>(): [
-  RefObject<T>,
-  Size
-] {
+function useElementSize(ref: RefObject<HTMLElement>): [number, number] {
   // Mutable values like 'ref.current' aren't valid dependencies
   // because mutating them doesn't re-render the component.
   // Instead, we use a state as a ref to be reactive.
-  const ref = useRef<T>(null);
   const [size, setSize] = useState<Size>({
     width: 0,
     height: 0,
@@ -44,7 +34,7 @@ function useElementSize<T extends HTMLElement = HTMLDivElement>(): [
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref.current?.offsetHeight, ref.current?.offsetWidth]);
 
-  return [ref, size];
+  return [size.width, size.height];
 }
 
 export { useElementSize };
