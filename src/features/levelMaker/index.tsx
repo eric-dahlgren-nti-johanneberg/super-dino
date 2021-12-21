@@ -1,17 +1,9 @@
 import React, { FC, RefObject, useLayoutEffect, useRef, useState } from 'react';
 
-import { CameraFunctions } from './types';
+import { CameraFunctions, CanvasState, Point } from './types';
 import { useCamera } from './useCamera';
 import { useCanvasEngine } from './useCanvasEngine';
 import { useElementSize } from './useElementSize';
-import { useMousePosition } from './useMousePosition';
-
-type Position = { x: number; y: number };
-
-type CanvasState = {
-  scale: number;
-  offset: Position;
-};
 
 const BLOCK_SIDE = 50;
 
@@ -23,7 +15,7 @@ const translateToCenter = (
   ctx.translate(-w / 2, -h / 2);
 };
 
-const drawBlockAt = (gl: CanvasRenderingContext2D, position: Position) => {
+const drawBlockAt = (gl: CanvasRenderingContext2D, position: Point) => {
   gl.fillStyle = '#e3e';
   gl.beginPath();
   gl.arc(position.x, position.y, 8, 0, 360);
@@ -57,7 +49,6 @@ const LevelMaker: FC = () => {
   } = useCanvas();
 
   const [width, height] = useElementSize(canvas);
-  const [mouseX, mouseY, mouseInCanvas] = useMousePosition(canvas);
   const [topLeft, setTopLeft] = useState({ x: 0, y: 0 });
 
   useLayoutEffect(() => {
@@ -121,7 +112,6 @@ const LevelMaker: FC = () => {
       gl.setTransform(1, 0, 0, 1, 0, 0);
 
       if (mouseInCanvas) {
-        translateToCenter(gl);
         drawBlockAt(gl, { x: mouseX, y: mouseY });
         gl.setTransform(1, 0, 0, 1, 0, 0);
       }
@@ -130,7 +120,11 @@ const LevelMaker: FC = () => {
 
   useCanvasEngine(gameLoop);
 
-  const { offset, scale } = state;
+  const {
+    offset,
+    scale,
+    mouse: [mouseX, mouseY, mouseInCanvas],
+  } = state;
 
   return (
     <section className='m-auto max-w-screen-lg'>

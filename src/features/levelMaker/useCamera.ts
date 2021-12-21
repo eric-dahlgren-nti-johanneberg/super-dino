@@ -15,7 +15,7 @@ const SCALE_RATIO = 1.02;
  */
 
 export const useCamera: Camera = (ref) => {
-  const [mouseX, mouseY] = useMousePosition(ref);
+  const [mouseX, mouseY, inCanvas] = useMousePosition(ref);
   const [pan, startPan, overridePan] = usePan();
 
   const [scale, setScale] = useState(1);
@@ -29,7 +29,7 @@ export const useCamera: Camera = (ref) => {
         const newScale = getScale(s, sc);
 
         if (newScale !== s) {
-          scaleAt(mouseX, mouseY, sc);
+          scaleAt(sc);
         }
         return newScale;
       });
@@ -37,11 +37,9 @@ export const useCamera: Camera = (ref) => {
     ref
   );
 
-  const scaleAt = (x: number, y: number, sc: number) => {
-    const point = { x: pan.x, y: pan.y };
-
-    point.x = x - (x - point.x) * sc;
-    point.y = y - (y - point.y) * sc;
+  const scaleAt = (sc: number, point = { x: pan.y, y: pan.y }) => {
+    point.x = mouseX - (mouseX - point.x) * sc;
+    point.y = mouseY - (mouseY - point.y) * sc;
 
     overridePan(point);
   };
@@ -49,17 +47,18 @@ export const useCamera: Camera = (ref) => {
   const state: CanvasState = {
     scale,
     offset: pan,
+    mouse: [mouseX, mouseY, inCanvas],
   };
 
   const toWorld = (x: number, y: number, point = { x: 0, y: 0 }) => {
     const inv = 1 / scale;
-    point.x = (x + pan.x) * inv;
-    point.y = (y + pan.y) * inv;
+    point.x = (x - pan.x) * inv;
+    point.y = (y - pan.y) * inv;
     return point;
   };
 
   const apply = (gl: CanvasRenderingContext2D) => {
-    gl.setTransform(scale, 0, 0, scale, -pan.x, -pan.y);
+    gl.setTransform(scale, 0, 0, scale, pan.x, pan.y);
   };
 
   return [state, { apply, scaleAt, toWorld, startPan }];

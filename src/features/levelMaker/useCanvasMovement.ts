@@ -31,6 +31,8 @@ function usePan(): [
     const point = { x: e.pageX, y: e.pageY };
     lastPointRef.current = point;
 
+    console.log(point.x - lastPoint.x);
+
     // Find the delta between the last mouse position on `mousemove` and the
     // current mouse position.
     //
@@ -38,8 +40,8 @@ function usePan(): [
     // state.
     setPanState((panState) => {
       const delta = {
-        x: lastPoint.x - point.x,
-        y: lastPoint.y - point.y,
+        x: point.x - lastPoint.x,
+        y: point.y - lastPoint.y,
       };
       const offset = {
         x: panState.x + delta.x,
