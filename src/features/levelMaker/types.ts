@@ -8,7 +8,7 @@ export type CanvasState = {
 };
 
 export type CameraFunctions = {
-  toWorld: (x: number, y: number) => Point;
+  toWorld: (x: number, y: number, point?: Point) => Point;
   scaleAt: (x: number, y: number, sc: number) => void;
   apply: (gl: CanvasRenderingContext2D) => void;
   startPan: (e: React.MouseEvent) => void;

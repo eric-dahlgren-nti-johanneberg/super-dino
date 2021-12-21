@@ -1,4 +1,4 @@
-import React, { FC, RefObject, useLayoutEffect, useRef } from 'react';
+import React, { FC, RefObject, useLayoutEffect, useRef, useState } from 'react';
 
 import { CameraFunctions } from './types';
 import { useCamera } from './useCamera';
@@ -58,6 +58,7 @@ const LevelMaker: FC = () => {
 
   const [width, height] = useElementSize(canvas);
   const [mouseX, mouseY, mouseInCanvas] = useMousePosition(canvas);
+  const [topLeft, setTopLeft] = useState({ x: 0, y: 0 });
 
   useLayoutEffect(() => {
     const gl = canvas.current?.getContext('2d');
@@ -77,14 +78,16 @@ const LevelMaker: FC = () => {
       scale = 1 / state.scale;
       gridScale = 2 ** (Math.log2(gridScreenSize * scale) | 0);
       size = Math.max(width, height) * scale + gridScale * 2;
-      x = (((-state.offset.x * scale - gridScale) / gridScale) | 0) * gridScale;
-      y = (((-state.offset.y * scale - gridScale) / gridScale) | 0) * gridScale;
+      x = (((state.offset.x * scale - gridScale) / gridScale) | 0) * gridScale;
+      y = (((state.offset.y * scale - gridScale) / gridScale) | 0) * gridScale;
     } else {
       gridScale = gridScreenSize;
       size = Math.max(width, height) / state.scale + gridScale * 2;
-      toWorld(0, 0);
-      x = Math.floor(0 / gridScale) * gridScale;
-      y = Math.floor(0 / gridScale) * gridScale;
+      const top = toWorld(0, 0, topLeft);
+      setTopLeft(top);
+
+      x = Math.floor(-top.x / gridScale) * gridScale;
+      y = Math.floor(-top.y / gridScale) * gridScale;
       if (size / gridScale > 64) {
         size = gridScale * 64;
       }
@@ -115,7 +118,7 @@ const LevelMaker: FC = () => {
 
       const pos = toWorld(0, 0);
       apply(gl);
-      drawBlockAt(gl, pos);
+      drawBlockAt(gl, { x: 0, y: 0 });
       gl.setTransform(1, 0, 0, 1, 0, 0);
 
       if (mouseInCanvas) {
@@ -132,7 +135,7 @@ const LevelMaker: FC = () => {
 
   return (
     <section className='m-auto max-w-screen-lg'>
-      <h1 className='text-xl font-bold'>Level Creator</h1>
+      <h1 className='font-bold text-xl'>Level Creator</h1>
 
       <p>
         canvas size: {width}x{height}
@@ -149,7 +152,7 @@ const LevelMaker: FC = () => {
         className='relative'
       >
         <canvas
-          className='aspect-video border-[1px] border-slate-600 cursor-none w-full border-solid'
+          className='aspect-video border-[1px] border-slate-600 border-solid cursor-none w-full'
           ref={canvas}
         />
       </section>

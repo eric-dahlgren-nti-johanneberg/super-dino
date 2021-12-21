@@ -15,7 +15,6 @@ const MAX_SCALE = 3;
 
 export const useCamera: Camera = (ref) => {
   const [mouseX, mouseY] = useMousePosition(ref);
-
   const [pan, startPan, overridePan] = usePan();
 
   const [scale, setScale] = useState(1);
@@ -24,10 +23,15 @@ export const useCamera: Camera = (ref) => {
   useEventListener<WheelEvent, HTMLElement>(
     'wheel',
     (e) => {
-      const sc = e.deltaY < 0 ? 1 / 1.02 : 1.02;
-      setScale((s) => getScale(s, sc));
+      const sc = e.deltaY < 0 ? -0.1 : 0.1;
+      setScale((s) => {
+        const newScale = getScale(s, sc);
 
-      scaleAt(mouseX, mouseY, sc);
+        if (newScale !== s) {
+          scaleAt(mouseX, mouseY, sc);
+        }
+        return newScale;
+      });
     },
     ref
   );
@@ -54,18 +58,18 @@ export const useCamera: Camera = (ref) => {
   };
 
   const apply = (gl: CanvasRenderingContext2D) => {
-    gl.setTransform(scale, 0, 0, scale, pan.x, pan.y);
+    gl.setTransform(scale, 0, 0, scale, -pan.x, -pan.y);
   };
 
   return [state, { apply, scaleAt, toWorld, startPan }];
 };
 
 function getScale(scale: number, sc: number) {
-  if (scale * sc > MAX_SCALE) {
+  if (scale + sc > MAX_SCALE) {
     return MAX_SCALE;
-  } else if (scale * sc < MIN_SCALE) {
+  } else if (scale + sc < MIN_SCALE) {
     return MIN_SCALE;
   } else {
-    return scale;
+    return scale + sc;
   }
 }
