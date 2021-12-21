@@ -78,16 +78,16 @@ const LevelMaker: FC = () => {
       scale = 1 / state.scale;
       gridScale = 2 ** (Math.log2(gridScreenSize * scale) | 0);
       size = Math.max(width, height) * scale + gridScale * 2;
-      x = (((state.offset.x * scale - gridScale) / gridScale) | 0) * gridScale;
-      y = (((state.offset.y * scale - gridScale) / gridScale) | 0) * gridScale;
+      x = (((-state.offset.x * scale - gridScale) / gridScale) | 0) * gridScale;
+      y = (((-state.offset.y * scale - gridScale) / gridScale) | 0) * gridScale;
     } else {
       gridScale = gridScreenSize;
       size = Math.max(width, height) / state.scale + gridScale * 2;
       const top = toWorld(0, 0, topLeft);
       setTopLeft(top);
 
-      x = Math.floor(-top.x / gridScale) * gridScale;
-      y = Math.floor(-top.y / gridScale) * gridScale;
+      x = Math.floor(top.x / gridScale) * gridScale;
+      y = Math.floor(top.y / gridScale) * gridScale;
       if (size / gridScale > 64) {
         size = gridScale * 64;
       }
@@ -116,7 +116,6 @@ const LevelMaker: FC = () => {
       drawGrid(gl);
       //drawGrid(gl);
 
-      const pos = toWorld(0, 0);
       apply(gl);
       drawBlockAt(gl, { x: 0, y: 0 });
       gl.setTransform(1, 0, 0, 1, 0, 0);
@@ -140,9 +139,11 @@ const LevelMaker: FC = () => {
       <p>
         canvas size: {width}x{height}
       </p>
+      <p>mouse position:</p>
       <p>
-        mouse position: x: {mouseX}, y: {mouseY}
+        x: {mouseX}, y: {mouseY}
       </p>
+      <p>{JSON.stringify(toWorld(mouseX, mouseY))}</p>
       <p>offset: {JSON.stringify(offset)}</p>
       <p>scale: {scale}</p>
       <p>mouse in canvas: {mouseInCanvas.toString()}</p>

@@ -7,6 +7,7 @@ import { useMousePosition } from './useMousePosition';
 
 const MIN_SCALE = 0.5;
 const MAX_SCALE = 3;
+const SCALE_RATIO = 1.02;
 
 /**
  * Listen for `wheel` events on the given element ref and update the reported
@@ -23,7 +24,7 @@ export const useCamera: Camera = (ref) => {
   useEventListener<WheelEvent, HTMLElement>(
     'wheel',
     (e) => {
-      const sc = e.deltaY < 0 ? -0.1 : 0.1;
+      const sc = e.deltaY < 0 ? 1 / SCALE_RATIO : SCALE_RATIO;
       setScale((s) => {
         const newScale = getScale(s, sc);
 
@@ -52,8 +53,8 @@ export const useCamera: Camera = (ref) => {
 
   const toWorld = (x: number, y: number, point = { x: 0, y: 0 }) => {
     const inv = 1 / scale;
-    point.x = (x - pan.x) * inv;
-    point.y = (y - pan.y) * inv;
+    point.x = (x + pan.x) * inv;
+    point.y = (y + pan.y) * inv;
     return point;
   };
 
@@ -65,11 +66,11 @@ export const useCamera: Camera = (ref) => {
 };
 
 function getScale(scale: number, sc: number) {
-  if (scale + sc > MAX_SCALE) {
+  if (scale * sc > MAX_SCALE) {
     return MAX_SCALE;
-  } else if (scale + sc < MIN_SCALE) {
+  } else if (scale * sc < MIN_SCALE) {
     return MIN_SCALE;
   } else {
-    return scale + sc;
+    return scale * sc;
   }
 }
