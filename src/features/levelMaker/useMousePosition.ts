@@ -1,24 +1,23 @@
-import { RefObject, useEffect, useState } from 'react';
+import { MutableRefObject, RefObject, useEffect, useRef } from 'react';
+
+import { Vec2 } from './types';
 
 const useMousePosition = (
   ref: RefObject<HTMLElement>
-): [number, number, boolean] => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isInComponent, setIsInComponent] = useState(false);
+): MutableRefObject<Vec2> => {
+  const position = useRef<Vec2>([0, 0]);
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
-      setPosition({ x: event.offsetX, y: event.offsetY });
+      position.current = [event.offsetX, event.offsetY];
     };
 
     if (ref.current) {
       ref.current.onmousemove = (event) => handleMouseMove(event);
-      ref.current.onmouseenter = () => setIsInComponent(true);
-      ref.current.onmouseleave = () => setIsInComponent(false);
     }
   }, [ref]);
 
-  return [position.x, position.y, isInComponent];
+  return position;
 };
 
 export { useMousePosition };

@@ -6,13 +6,11 @@ import { rotation } from './gl/m3';
 import { CanvasDrawFn } from './types';
 
 const vs = `#version 300 es
-in vec2 a_position;
-
-uniform mat3 u_matrix;
+in vec4 a_position;
 
 void main() {
   // Multiply the position by the matrix.
-  gl_Position = vec4((u_matrix * vec3(a_position, 1)).xy, 0, 1);
+  gl_Position = a_position;
 }
 `;
 
@@ -20,11 +18,12 @@ const fs = `#version 300 es
 precision highp float;
 
 uniform vec4 u_color;
+uniform vec2 u_mouse;
 
 out vec4 outColor;
 
 void main() {
-   outColor = u_color;
+   outColor = vec4(1.0 / u_mouse.x, 0, 0, 1.0);
 }
 `;
 
@@ -41,13 +40,15 @@ const initGl = (gl: WebGL2RenderingContext) => {
   // lookup uniforms
   const colorLocation = gl.getUniformLocation(program, 'u_color');
   const matrixLocation = gl.getUniformLocation(program, 'u_matrix');
+  const mouseLocation = gl.getUniformLocation(program, 'u_mouse');
 
   // Create a buffer and put a 2 points in it for 1 line
   const positionBuffer = gl.createBuffer();
 
   // Bind it to ARRAY_BUFFER (think of it as ARRAY_BUFFER = positionBuffer)
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-  const positions = [-2, -2, 2, 2];
+  // three points
+  const positions = [0, 0, 0, 0.5, 0.7, 0];
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
   // Create a vertex array object (attribute state)
@@ -58,12 +59,14 @@ const initGl = (gl: WebGL2RenderingContext) => {
 
   // Turn on the attribute
   gl.enableVertexAttribArray(positionAttributeLocation);
+
   // Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
   const size = 2; // 2 components per iteration
   const type = gl.FLOAT; // the data is 32bit floats
   const normalize = false; // don't normalize the data
   const stride = 0; // 0 = move forward size * sizeof(type) each iteration to get the next position
   const offset = 0; // start at the beginning of the buffer
+
   gl.vertexAttribPointer(
     positionAttributeLocation,
     size,
@@ -77,13 +80,15 @@ const initGl = (gl: WebGL2RenderingContext) => {
     program,
     colorLocation,
     matrixLocation,
+    mouseLocation,
     vao,
   };
 };
 
 const LevelMaker: FC = () => {
-  const draw: CanvasDrawFn = (gl, frame) => {
-    const { colorLocation, matrixLocation, program, vao } = initGl(gl);
+  const draw: CanvasDrawFn = (gl, frame, mouse) => {
+    const { colorLocation, matrixLocation, mouseLocation, program, vao } =
+      initGl(gl);
     frame *= 0.001;
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
@@ -100,16 +105,25 @@ const LevelMaker: FC = () => {
     // Compute the matrices
     const matrix = rotation(-frame);
 
+    const width = gl.canvas.clientHeight;
+    const heigth = gl.canvas.clientWidth;
+
     // Set the matrix.
     gl.uniformMatrix3fv(matrixLocation, false, matrix);
+    gl.uniform2f(mouseLocation, width / mouse[0], heigth / mouse[1]);
 
-    // Draw in Red
-    gl.uniform4fv(colorLocation, [1, 0, 0, 1]);
+    // Draw in * Fabulous *
+    gl.uniform4fv(colorLocation, [
+      Math.sin(frame),
+      Math.cos(frame),
+      Math.sin(frame),
+      1,
+    ]);
 
     // Draw the line
-    const primitiveType = gl.LINES;
+    const primitiveType = gl.TRIANGLES;
     const offset = 0;
-    const count = 2;
+    const count = 3;
     gl.drawArrays(primitiveType, offset, count);
   };
 
@@ -118,7 +132,7 @@ const LevelMaker: FC = () => {
       <h1>Canvas</h1>
       <Canvas
         draw={draw}
-        className='aspect-video border-[1px] border-slate-600 border-solid w-full'
+        className='aspect-video max-w-screen-lg m-auto cursor-auto border-[1px] border-slate-600 border-solid w-full'
       />
     </section>
   );

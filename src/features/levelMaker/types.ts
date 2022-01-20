@@ -1,8 +1,10 @@
 export type Point = { x: number; y: number };
+export type Vec2 = [number, number];
 
 export type CanvasDrawFn = (
   gl: WebGL2RenderingContext,
-  frameCount: number
+  frameCount: number,
+  mouse: Vec2
 ) => void;
 
 export interface ResizeObserverEntry {

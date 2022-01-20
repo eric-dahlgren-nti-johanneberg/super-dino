@@ -13,9 +13,10 @@ interface ICanvasProps
 
 const Canvas: FC<ICanvasProps> = (props) => {
   const { ref } = useCanvas(props.draw);
-
   const canvasProps = { ...props, draw: undefined };
   return <canvas ref={ref} {...canvasProps} />;
 };
+
+Canvas.displayName = 'PlayerCanvas';
 
 export default Canvas;

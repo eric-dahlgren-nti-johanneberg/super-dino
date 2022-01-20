@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 
-import { ResizeObserverCallback } from '../types';
+import { CanvasDrawFn, ResizeObserverCallback } from '../types';
+import { useMousePosition } from '../useMousePosition';
 
 function resizeCanvasToDisplaySize(
   canvas: HTMLCanvasElement,
@@ -22,11 +23,10 @@ function resizeCanvasToDisplaySize(
   return needResize;
 }
 
-export const useCanvas = (
-  draw: (gl: WebGL2RenderingContext, frameCount: number) => void
-) => {
+export const useCanvas = (draw: CanvasDrawFn) => {
   const ref = useRef<HTMLCanvasElement>(null);
   const sizeMap = useRef<Map<Element | null, number[]> | null>(null);
+  const mouse = useMousePosition(ref);
 
   const onResize: ResizeObserverCallback = (entries) => {
     for (const entry of entries) {
@@ -84,14 +84,15 @@ export const useCanvas = (
       const render = (now: number) => {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         resizeCanvasToDisplaySize(gl.canvas, sizeMap.current!);
-        draw(gl, now);
+        draw(gl, now, mouse.current);
         requestAnimationFrame(render);
       };
 
       lastUpdate = requestAnimationFrame(render);
     }
     return () => cancelAnimationFrame(lastUpdate);
-  }, [draw]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [draw, ref]);
 
   return { ref };
 };
