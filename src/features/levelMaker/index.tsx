@@ -23,7 +23,7 @@ uniform vec2 u_mouse;
 out vec4 outColor;
 
 void main() {
-   outColor = vec4(1.0 / u_mouse.x, 0, 0, 1.0);
+   outColor = u_color;
 }
 `;
 
@@ -114,9 +114,9 @@ const LevelMaker: FC = () => {
 
     // Draw in * Fabulous *
     gl.uniform4fv(colorLocation, [
-      Math.sin(frame),
-      Math.cos(frame),
-      Math.sin(frame),
+      Math.abs(Math.sin(frame)),
+      Math.cos(-frame),
+      Math.abs(Math.cos(frame)),
       1,
     ]);
 
