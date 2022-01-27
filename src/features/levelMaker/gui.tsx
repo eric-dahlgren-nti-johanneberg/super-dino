@@ -1,3 +1,3 @@
 export const GUI = () => {
-  return <mesh></mesh>;
+  return <group></group>;
 };

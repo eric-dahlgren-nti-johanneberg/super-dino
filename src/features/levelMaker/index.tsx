@@ -1,7 +1,8 @@
 import { animated, useSpring } from '@react-spring/three';
 import { Canvas } from '@react-three/fiber';
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, Suspense, useRef, useState } from 'react';
 
+import { Background } from './background';
 import { GUI } from './gui';
 
 const LevelMaker: FC = () => {
@@ -22,18 +23,23 @@ const LevelMaker: FC = () => {
         className='aspect-video border-[1px] max-h-[80vh] m-auto border-slate-600 border-solid w-full'
         ref={canvas}
       >
-        <GUI />
+        <Suspense fallback={null}>
+          <Background />
+          <GUI />
 
-        <hemisphereLight position={[10, 0, 0]} />
+          <hemisphereLight position={[10, 0, 0]} />
 
-        <animated.mesh
-          scale={scale}
-          onPointerEnter={() => setHovered(true)}
-          onPointerLeave={() => setHovered(false)}
-        >
-          <sphereBufferGeometry />
-          <animated.meshStandardMaterial color={color} />
-        </animated.mesh>
+          <animated.mesh
+            scale={scale}
+            onPointerEnter={() => setHovered(true)}
+            onPointerLeave={() => setHovered(false)}
+          >
+            <sphereBufferGeometry />
+            {/*
+         // @ts-expect-error this works */}
+            <animated.meshStandardMaterial color={color} />
+          </animated.mesh>
+        </Suspense>
       </Canvas>
     </section>
   );
