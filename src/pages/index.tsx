@@ -11,8 +11,12 @@ export default function HomePage() {
 
       <main>
         <h1>Supa Sario Brotha&apos;s</h1>
-        <ButtonLink variant='outline' href='/maker'>Level Creator</ButtonLink>
-        <ButtonLink variant='outline' href='/play'>Player</ButtonLink>
+        <ButtonLink variant='outline' href='/maker'>
+          Level Creator
+        </ButtonLink>
+        <ButtonLink variant='outline' href='/player'>
+          Player
+        </ButtonLink>
       </main>
     </Layout>
   );
