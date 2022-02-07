@@ -1,14 +1,12 @@
 import { animated, useSpring } from '@react-spring/three';
 import { Canvas } from '@react-three/fiber';
-import React, { FC, Suspense, useEffect, useRef, useState } from 'react';
-import { OrthographicCamera, Vector3 } from 'three';
+import React, { FC, Suspense, useRef, useState } from 'react';
 
 import { Background } from './background';
 import { GUI } from './gui';
 
 const LevelMaker: FC = () => {
   const canvas = useRef<HTMLCanvasElement>(null);
-  const camera = useRef<OrthographicCamera>(null);
 
   const [hovered, setHovered] = useState(false);
 
@@ -16,13 +14,6 @@ const LevelMaker: FC = () => {
     scale: hovered ? 1.5 : 1,
     color: hovered ? 'hotpink' : 'red',
   });
-
-  useEffect(() => {
-    if (camera.current) {
-      camera.current.position.set(100, 100, 100);
-      camera.current.lookAt(0, 0, 0);
-    }
-  }, []);
 
   return (
     <section className='m-auto max-w-screen-lg'>
@@ -36,22 +27,17 @@ const LevelMaker: FC = () => {
           <Background />
           <GUI />
 
-          <hemisphereLight position={[0, 0, 10]} />
-
-          <orthographicCamera
-            ref={camera}
-            position={new Vector3(100, 100, 100)}
-          />
+          <hemisphereLight position={[10, 0, 0]} />
 
           <animated.mesh
             scale={scale}
             onPointerEnter={() => setHovered(true)}
             onPointerLeave={() => setHovered(false)}
           >
-            <icosahedronGeometry args={[0.5, 3]} />
-            {/* 
-            // @ts-expect-error this works */}
-            <animated.meshPhongMaterial color={color} />
+            <sphereBufferGeometry />
+            {/*
+         // @ts-expect-error this works */}
+            <animated.meshStandardMaterial color={color} />
           </animated.mesh>
         </Suspense>
       </Canvas>
