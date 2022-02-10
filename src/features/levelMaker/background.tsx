@@ -1,8 +1,9 @@
-import { memo } from 'react';
+import niceColors from 'nice-color-palettes';
 
-export const Background = memo(() => {
+export const Background = () => {
   const data = new Array(64 * 64).fill(0).map((d, id) => ({ id }));
-  const colors = ['red', 'green', 'blue', 'yellow', 'pink', 'purple'];
+  const colors = niceColors[17];
+
   return (
     <group>
       {data.map((d, i) => {
@@ -20,6 +21,4 @@ export const Background = memo(() => {
       })}
     </group>
   );
-});
-
-Background.displayName = 'Background';
+};
