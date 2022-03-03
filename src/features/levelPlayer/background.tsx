@@ -5,11 +5,11 @@ import { Color, InstancedMesh, Matrix4 } from 'three';
 
 const colors = niceColors[1];
 
-const data = new Array(64 * 64).fill(0).map((d, id) => ({
+const data = new Array(16 * 256).fill(0).map((d, id) => ({
   id,
   mat4: new Matrix4().setPosition(
-    (id % 64) * 1.05 - 6.3,
-    Math.floor(id / 64) * 1.05 - 3.3,
+    id % 256 /*  * 1.05 - 6.3 */,
+    Math.floor(id / 256) /*  * 1.05 - 3.3 */,
     0
   ),
   col3: new Color().setHex(
@@ -21,24 +21,6 @@ const data = new Array(64 * 64).fill(0).map((d, id) => ({
       256
   ),
 }));
-
-type Value = { id: number; x: number; y: number };
-
-const Cell = memo<{
-  value: Value;
-  active: boolean;
-  onActive: (id: number) => void;
-}>(({ value, onActive }) => (
-  <mesh
-    position={[value.x, value.y, 0]}
-    onPointerEnter={() => onActive(value.id)}
-  >
-    - <boxBufferGeometry attach='geometry' args={[1, 1, 0, 32]} />
-    <meshStandardMaterial attach='material' />
-  </mesh>
-));
-
-Cell.displayName = 'Cell';
 
 export const Background = memo(() => {
   const cellMesh = useRef<InstancedMesh>(null);
