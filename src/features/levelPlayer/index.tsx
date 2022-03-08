@@ -1,18 +1,24 @@
-import { animated, useSpring } from '@react-spring/three';
+import { OrthographicCamera } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import React, { FC, Suspense, useRef, useState } from 'react';
+import React, { FC, Suspense, useCallback, useEffect, useRef } from 'react';
 
 import { Background } from './background';
 import { GUI } from './gui';
+import { Circle } from '../levelMaker/Circle';
 
-const LevelMaker: FC = () => {
+const LevelPlayer: FC = () => {
   const canvas = useRef<HTMLCanvasElement>(null);
 
-  const [hovered, setHovered] = useState(false);
+  const escFunction = useCallback((event) => {
+    console.log(event.key);
+  }, []);
 
-  const { scale, color } = useSpring({
-    scale: hovered ? 1.5 : 1,
-    color: hovered ? 'hotpink' : 'red',
+  useEffect(() => {
+    document.addEventListener('keydown', escFunction, false);
+
+    return () => {
+      document.removeEventListener('keydown', escFunction, false);
+    };
   });
 
   return (
@@ -22,27 +28,17 @@ const LevelMaker: FC = () => {
       <Canvas
         className='aspect-video border-[1px] border-slate-600 max-h-[80vh] m-auto w-full border-solid'
         ref={canvas}
+        camera={{ position: [0, 0, 4], fov: 50 }}
       >
         <Suspense fallback={null}>
           <Background />
           <GUI />
-
-          <hemisphereLight position={[10, 0, 0]} />
-
-          <animated.mesh
-            scale={scale}
-            onPointerEnter={() => setHovered(true)}
-            onPointerLeave={() => setHovered(false)}
-          >
-            <sphereBufferGeometry />
-            {/*
-         // @ts-expect-error this works */}
-            <animated.meshStandardMaterial color={color} />
-          </animated.mesh>
+          <hemisphereLight position={[0, 0, 0]} />
         </Suspense>
+        <OrthographicCamera makeDefault></OrthographicCamera>
       </Canvas>
     </section>
   );
 };
 
-export default LevelMaker;
+export default LevelPlayer;

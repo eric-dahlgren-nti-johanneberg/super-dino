@@ -49,6 +49,7 @@ export const Background = memo(() => {
       ref={cellMesh}
       args={[undefined, undefined, data.length]}
       onPointerEnter={(ev) => (active.current = ev.instanceId ?? -1)}
+      onClick={(ev) => console.log(ev.spaceX, ev.spaceY)}
     >
       <planeBufferGeometry attach='geometry' />
       <meshStandardMaterial attach='material' />

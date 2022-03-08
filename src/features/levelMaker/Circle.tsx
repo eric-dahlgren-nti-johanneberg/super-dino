@@ -1,7 +1,14 @@
-import { animated, useSpring } from '@react-spring/three';
-import { useState } from 'react';
+import { animated as a, useSpring } from '@react-spring/three';
+import { OrthographicCamera } from '@react-three/drei';
+import { MeshProps, useFrame } from '@react-three/fiber';
+import { FC, useRef, useState } from 'react';
+import { Mesh } from 'three';
 
-export const Circle = () => {
+interface CircleProps {
+  animated: boolean;
+}
+
+export const Circle = ({ animated }: CircleProps) => {
   const [hovered, setHovered] = useState(false);
 
   const { scale, color } = useSpring({
@@ -9,8 +16,20 @@ export const Circle = () => {
     color: hovered ? 'hotpink' : 'red',
   });
 
+  const circleRef = useRef<Mesh>();
+  useFrame((state) => {
+    if (animated) {
+      circleRef.current?.position.set(
+        Math.sin(state.clock.getElapsedTime()) * 5 + 5,
+        5,
+        0
+      );
+    }
+  });
+
   return (
-    <animated.mesh
+    <a.mesh
+      ref={circleRef}
       scale={scale}
       onPointerEnter={() => setHovered(true)}
       onPointerLeave={() => setHovered(false)}
@@ -18,7 +37,7 @@ export const Circle = () => {
       <sphereBufferGeometry />
       {/*
          // @ts-expect-error this works */}
-      <animated.meshStandardMaterial color={color} />
-    </animated.mesh>
+      <a.meshStandardMaterial color={color} />
+    </a.mesh>
   );
 };
