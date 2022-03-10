@@ -14,21 +14,17 @@ export const Player = (): JSX.Element => {
         }
         break;
       case "a":
-        MOVEMENT_VECTOR.current = new Vector3(
-          -0.1,
-          MOVEMENT_VECTOR.current.y,
-          0
-        );
+        MOVEMENT_VECTOR.current.x = -0.1;
         break;
       case "s":
         //crouch
         break;
       case "d":
-        MOVEMENT_VECTOR.current = new Vector3(
-          0.1,
-          MOVEMENT_VECTOR.current.y,
-          0
-        );
+        MOVEMENT_VECTOR.current.x = 0.1;
+        break;
+      case "shift":
+        console.log("hello");
+        MOVEMENT_VECTOR.current.x = MOVEMENT_VECTOR.current.x * 2;
         break;
     }
   }, []);
@@ -36,13 +32,16 @@ export const Player = (): JSX.Element => {
   const checkKeyUp = useCallback((event) => {
     switch (event.key) {
       case "a":
-        MOVEMENT_VECTOR.current = new Vector3(0, MOVEMENT_VECTOR.current.y, 0);
+        MOVEMENT_VECTOR.current.x = 0;
         break;
       case "s":
         //crouch
         break;
       case "d":
-        MOVEMENT_VECTOR.current = new Vector3(0, MOVEMENT_VECTOR.current.y, 0);
+        MOVEMENT_VECTOR.current.x = 0;
+        break;
+      case "shift":
+        MOVEMENT_VECTOR.current.x = MOVEMENT_VECTOR.current.x * 1;
         break;
     }
   }, []);
@@ -61,9 +60,9 @@ export const Player = (): JSX.Element => {
   useFrame(({ clock }) => {
     playerRef.current?.position.add(MOVEMENT_VECTOR.current);
 
-    //Jump
+    //Gravity
     if (playerRef.current?.position.y > 0) {
-      MOVEMENT_VECTOR.current.y -= 0.02;
+      MOVEMENT_VECTOR.current.y -= 0.025;
     } else {
       MOVEMENT_VECTOR.current.y = 0;
     }
@@ -76,7 +75,6 @@ export const Player = (): JSX.Element => {
     } else if (playerRef.current?.position.y < 0) {
       playerRef.current?.position.y = 0;
     }
-    console.log(playerRef.current?.position.x);
   });
 
   return (

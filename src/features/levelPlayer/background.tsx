@@ -5,7 +5,7 @@ import { Color, InstancedMesh, Matrix4 } from "three";
 
 const colors = niceColors[1];
 
-const data = new Array(16 * 256).fill(0).map((d, id) => ({
+const data = new Array(32 * 256).fill(0).map((d, id) => ({
   id,
   mat4: new Matrix4().setPosition(
     id % 256 /*  * 1.05 - 6.3 */,
