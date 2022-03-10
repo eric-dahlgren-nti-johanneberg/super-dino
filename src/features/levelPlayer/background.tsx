@@ -1,7 +1,7 @@
-import { useFrame } from '@react-three/fiber';
-import niceColors from 'nice-color-palettes';
-import { memo, useRef } from 'react';
-import { Color, InstancedMesh, Matrix4 } from 'three';
+import { useFrame } from "@react-three/fiber";
+import niceColors from "nice-color-palettes";
+import { memo, useRef } from "react";
+import { Color, InstancedMesh, Matrix4 } from "three";
 
 const colors = niceColors[1];
 
@@ -31,7 +31,7 @@ export const Background = memo(() => {
       cellMesh.current?.setMatrixAt(i, d.mat4);
 
       if (d.id === active.current) {
-        cellMesh.current?.setColorAt(i, new Color().setColorName('red'));
+        cellMesh.current?.setColorAt(i, new Color().setColorName("red"));
       } else {
         cellMesh.current?.setColorAt(i, d.col3);
       }
@@ -49,12 +49,11 @@ export const Background = memo(() => {
       ref={cellMesh}
       args={[undefined, undefined, data.length]}
       onPointerEnter={(ev) => (active.current = ev.instanceId ?? -1)}
-      onClick={(ev) => console.log(ev.spaceX, ev.spaceY)}
     >
-      <planeBufferGeometry attach='geometry' />
-      <meshStandardMaterial attach='material' />
+      <planeBufferGeometry attach="geometry" />
+      <meshStandardMaterial attach="material" />
     </instancedMesh>
   );
 });
 
-Background.displayName = 'Background';
+Background.displayName = "Background";
