@@ -6,20 +6,15 @@
   "author": "eric <eric@dgren.dev>",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider poi src/index.html --serve",
-    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider poi src/index.html --prod",
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint src --ext js,ts",
-    "format": "prettier --write \"@(src|public)/**/*.@(ts|js|json|html)\"",
-    "ci": "npm-run-all --parallel --print-label lint typecheck build"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
+    "vite": "^2.8.0",
     "eslint": "8.10.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-config-typescript": "^3.0.0",
-    "npm-run-all": "4.1.5",
-    "poi": "12.10.3",
     "prettier": "2.5.1",
     "typescript": "^4.6.0"
   }

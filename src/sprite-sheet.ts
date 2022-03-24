@@ -10,7 +10,7 @@ export class SpriteSheet {
     public tileHeight: number,
   ) {}
 
-  define(name: string, x: number, y: number, width: number, height: number) {
+  definera(name: string, x: number, y: number, width: number, height: number) {
     const buffers = [false, true].map((flipped) => {
       const buffer = document.createElement('canvas')
       buffer.width = width
@@ -31,8 +31,8 @@ export class SpriteSheet {
     this.tiles.set(name, buffers)
   }
 
-  defineTile(name: string, x: number, y: number) {
-    this.define(
+  defineraTile(name: string, x: number, y: number) {
+    this.definera(
       name,
       x * this.tileWidth,
       y * this.tileHeight,
@@ -41,7 +41,7 @@ export class SpriteSheet {
     )
   }
 
-  defineAnimation(name: string, animation: Animation) {
+  defineraAnimation(name: string, animation: Animation) {
     this.animations.set(name, animation)
   }
 
