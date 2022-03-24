@@ -1,3 +1,1 @@
-const setupKeyboard = (target: EventTarget) => {
-    
-}
+const setupKeyboard = (target: EventTarget) => {}
