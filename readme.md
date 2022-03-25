@@ -7,4 +7,4 @@ Spelet är byggt på ett `ECS` (`E`ntity `C`omponent `S`ystem), och renderas i w
 ## Team
 - Amanda Birkedahl (@amanda-birkedahl-nti-johanneberg)
 - Eric Dahlgren (@eriyc)
-- Joel Lundhag (@ghost_of_steel)
+- Joel Lundhag (@ghostofsteel)

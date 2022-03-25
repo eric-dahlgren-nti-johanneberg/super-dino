@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es2018",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "lib": ["dom", "esnext"],
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "moduleResolution": "Node",
     "strict": true,
-    "noUnusedLocals": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
-    "downlevelIteration": true,
-    "resolveJsonModule": true
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true
   },
   "include": ["src"]
 }
