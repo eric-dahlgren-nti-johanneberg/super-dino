@@ -32,13 +32,16 @@ export function setupKeyboard(target: EventTarget) {
     })
   })
 
-  input.addListener('KeyZ', () => {
-    router.route((entity) => {
-      // Sario kan hoppa
-      entity.useTrait(Jump, (jump) => {
-        jump.start()
+  input.addListener('KeyZ', (pressed) => {
+    if (pressed) {
+      router.route((entity) => {
+        entity.useTrait(Jump, (jump) => jump.start())
       })
-    })
+    } else {
+      router.route((entity) => {
+        entity.useTrait(Jump, (jump) => jump.cancel())
+      })
+    }
   })
 
   input.addListener('KeyX', (keyState) => {
