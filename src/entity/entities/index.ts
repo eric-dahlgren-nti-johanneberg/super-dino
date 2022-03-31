@@ -1,6 +1,7 @@
 import { loadSario } from './sario'
 import { Entity } from '../entity'
 import { Dict } from '../../types'
+import { loadOnion } from './onion'
 
 export type EntityFactory = () => Entity
 
@@ -13,7 +14,10 @@ export async function loadEntities(): Promise<EntityFactoryDict> {
     factories[name] = factory
   }
 
-  await Promise.all([loadSario().then(addAs('sario'))])
+  await Promise.all([
+    loadSario().then(addAs('sario')),
+    loadOnion().then(addAs('onion')),
+  ])
 
   return factories
 }

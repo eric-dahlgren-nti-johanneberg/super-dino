@@ -14,7 +14,7 @@ import { Timer } from './timer'
 const main = async (canvas: HTMLCanvasElement): Promise<void> => {
   const context = canvas.getContext('2d') || raise('Canvas not supported')
   // slipp skriva `Math#floor` en massa gånger
-  context.imageSmoothingEnabled = true
+  context.imageSmoothingEnabled = false
 
   const [entityFactory, font] = await Promise.all([loadEntities(), loadFont()])
 

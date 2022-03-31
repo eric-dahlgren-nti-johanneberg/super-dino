@@ -3,6 +3,7 @@ import { Entity } from '../entity/entity'
 import { InputRouter } from './input-router'
 import { Keyboard } from './keyboard'
 import { Go } from '../traits/go'
+import { Jump } from '../traits/jump'
 
 export function setupKeyboard(target: EventTarget) {
   const input = new Keyboard()
@@ -27,6 +28,15 @@ export function setupKeyboard(target: EventTarget) {
     router.route((entity) => {
       entity.useTrait(Go, (go) => {
         go.dir = rightState - leftState
+      })
+    })
+  })
+
+  input.addListener('KeyZ', () => {
+    router.route((entity) => {
+      // Sario kan hoppa
+      entity.useTrait(Jump, (jump) => {
+        jump.start()
       })
     })
   })

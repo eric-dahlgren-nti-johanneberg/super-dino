@@ -158,13 +158,12 @@
     }
   ],
 
-  "entities": [],
-
-  "triggers": [
+  "entities": [
     {
-      "type": "goto",
-      "name": "1-2",
-      "pos": [64, 64]
+      "name": "onion",
+      "pos": [260, 0]
     }
-  ]
+  ],
+
+  "triggers": []
 }
