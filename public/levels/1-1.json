@@ -42,6 +42,11 @@
     {
       "tiles": [
         {
+          "name": "coin",
+          "type": "coin",
+          "ranges": [[4, 7, 3]]
+        },
+        {
           "name": "bricks",
           "type": "brick",
           "ranges": [
@@ -59,7 +64,7 @@
           ]
         },
         {
-          "name": "chance-1",
+          "name": "chance",
           "type": "ground",
           "ranges": [
             [2, 2],
@@ -132,23 +137,6 @@
           "ranges": [
             [53, 9],
             [64, 9]
-          ]
-        },
-        {
-          "pattern": "cloud-single",
-          "ranges": [
-            [2, 2],
-            [25, 2],
-            [35, 3],
-            [44, 2],
-            [64, 3],
-            [74, 2],
-            [80, 3],
-            [90, 2],
-            [108, 3],
-            [118, 2],
-            [128, 3],
-            [138, 2]
           ]
         }
       ]
