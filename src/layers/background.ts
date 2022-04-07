@@ -29,6 +29,14 @@ export function createBackgroundLayer(
 
     for (const [tile, x, y] of items) {
       if (!tile.name) continue
+
+      if (tile.name === 'ground') {
+        const above = tiles.get(x, y - 1)
+        if (above?.name && above.name === 'sky') {
+          sprites.drawTile('grass', context, x - startIndex, y)
+          continue
+        }
+      }
       sprites.drawTile(tile.name, context, x - startIndex, y)
     }
   }
