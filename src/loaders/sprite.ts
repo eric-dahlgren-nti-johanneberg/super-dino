@@ -2,6 +2,7 @@ import { loadImage } from './image'
 import { loadJSON } from './json'
 import { SpriteSheet } from '../sprite-sheet'
 import { SpriteSheetSpec } from './types'
+import { createAnimation } from '../animation'
 
 export async function loadSpriteSheet(name: string) {
   const url = `sprites/${name}.json`
@@ -24,12 +25,12 @@ export async function loadSpriteSheet(name: string) {
     })
   }
 
-  /* if (sheetSpec.animations) {
+  if (sheetSpec.animations) {
     sheetSpec.animations.forEach((animSpec) => {
       const animation = createAnimation(animSpec.frames, animSpec.frameLength)
-      sprites.defineAnimation(animSpec.name, animation)
+      sprites.defineraAnimation(animSpec.name, animation)
     })
-  } */
+  }
 
   return sprites
 }

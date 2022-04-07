@@ -1,3 +1,4 @@
+import { Animation } from './animation'
 import { raise } from './raise'
 
 export class SpriteSheet {

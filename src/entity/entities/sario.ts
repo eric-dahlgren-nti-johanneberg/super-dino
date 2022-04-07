@@ -5,6 +5,7 @@ import { Go } from '../../traits/go'
 import { Jump } from '../../traits/jump'
 import { Physics } from '../../traits/physics'
 import { Solid } from '../../traits/solid'
+import { Vec2 } from '../../math'
 
 const FAST_DRAG = 1 / 5000
 const SLOW_DRAG = 1 / 1000
@@ -20,27 +21,12 @@ export class Sario extends Entity {
     super()
 
     this.go.dragFactor = SLOW_DRAG
-
+    this.size = new Vec2(32, 32)
     this.setTurboState(false)
   }
 
   draw(context: CanvasRenderingContext2D) {
     this.sprites.draw('idle', context, 0, 0, this.go.heading < 0)
-    console.log(this.pos.x - this.offset.x, this.pos.y - this.offset.y)
-
-    context.beginPath()
-    context.arc(
-      this.pos.x - this.offset.x,
-      this.pos.y - this.offset.y,
-      this.size.x,
-      0,
-      Math.PI * 2,
-    )
-    context.strokeStyle = 'blue'
-    context.fillStyle = 'blue'
-    context.closePath()
-    context.stroke()
-    context.fill()
   }
 
   setTurboState(turboState: boolean) {
