@@ -3,6 +3,7 @@ import { loadEntities } from './entity/entities'
 import { GameContext } from './game-context'
 import { createTextLayer } from './layers/color'
 import { createColorLayer } from './layers/text'
+import { createCollisionLayer } from './layers/collision'
 import { Scene } from './level/Scene'
 import { SceneRunner } from './level/scene-runner'
 import { loadFont } from './loaders/font'
@@ -46,6 +47,7 @@ const main = async (canvas: HTMLCanvasElement): Promise<void> => {
     const playerEnv = createPlayerEnv(sario)
     level.entities.add(playerEnv)
 
+    level.comp.layers.push(createCollisionLayer(level))
     sceneRunner.addScene(level)
     sceneRunner.runNext()
   }
