@@ -52,6 +52,7 @@ export class Entity {
     })
 
     this.lifetime += gameContext.deltaTime
+    this.offset = level.camera.pos
   }
 
   draw(context: CanvasRenderingContext2D) {}

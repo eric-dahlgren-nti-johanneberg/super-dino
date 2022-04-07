@@ -26,6 +26,21 @@ export class Sario extends Entity {
 
   draw(context: CanvasRenderingContext2D) {
     this.sprites.draw('idle', context, 0, 0, this.go.heading < 0)
+    console.log(this.pos.x - this.offset.x, this.pos.y - this.offset.y)
+
+    context.beginPath()
+    context.arc(
+      this.pos.x - this.offset.x,
+      this.pos.y - this.offset.y,
+      this.size.x,
+      0,
+      Math.PI * 2,
+    )
+    context.strokeStyle = 'blue'
+    context.fillStyle = 'blue'
+    context.closePath()
+    context.stroke()
+    context.fill()
   }
 
   setTurboState(turboState: boolean) {

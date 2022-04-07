@@ -28,6 +28,8 @@ export function createSpriteLayer(
         entity.pos.x - camera.pos.x,
         entity.pos.y - camera.pos.y,
       )
+
+      
     })
   }
 }
