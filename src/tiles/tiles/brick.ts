@@ -29,11 +29,6 @@ const handleY: TileColliderHandler = ({
     if (entity.getTrait(Player)) {
       const grid = resolver.matrix
       grid.delete(match.indexX, match.indexY)
-
-      const onion = gameContext.entityFactory.onion!()
-      onion.vel.set(50, -400)
-      onion.pos.set(entity.pos.x, match.y1)
-      level.entities.add(onion)
     }
 
     if (entity.bounds.top < match.y2) {
