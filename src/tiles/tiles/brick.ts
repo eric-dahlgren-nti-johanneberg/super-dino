@@ -30,10 +30,10 @@ const handleY: TileColliderHandler = ({
       const grid = resolver.matrix
       grid.delete(match.indexX, match.indexY)
 
-      const goomba = gameContext.entityFactory.goomba!()
-      goomba.vel.set(50, -400)
-      goomba.pos.set(entity.pos.x, match.y1)
-      level.entities.add(goomba)
+      const onion = gameContext.entityFactory.onion!()
+      onion.vel.set(50, -400)
+      onion.pos.set(entity.pos.x, match.y1)
+      level.entities.add(onion)
     }
 
     if (entity.bounds.top < match.y2) {

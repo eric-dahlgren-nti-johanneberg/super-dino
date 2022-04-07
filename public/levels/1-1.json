@@ -59,7 +59,7 @@
           ]
         },
         {
-          "name": "chance",
+          "name": "chance-1",
           "type": "ground",
           "ranges": [
             [2, 2],

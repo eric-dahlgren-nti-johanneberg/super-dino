@@ -6,15 +6,10 @@ import {
   TileResolverMatch,
   TileResolverMatrix,
 } from './tile-resolver'
-/* 
-    I framtiden kommer brick och coin finnas :)
 
-    import { brick } from './tiles/brick'
-    import { coin } from './tiles/coin'
-
-*/
-
+import { brick } from './tiles/brick'
 import { ground } from './tiles/ground'
+import { chance } from './tiles/chance'
 import { Dict } from '../types'
 
 export type TileColliderContext = {
@@ -29,6 +24,8 @@ export type TileColliderHandler = (context: TileColliderContext) => void
 
 const handlers: Dict<TileColliderHandler[]> = {
   ground,
+  brick,
+  chance,
 }
 
 export class TileCollider {

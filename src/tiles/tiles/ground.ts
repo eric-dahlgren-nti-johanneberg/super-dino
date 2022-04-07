@@ -14,11 +14,15 @@ const handleX: TileColliderHandler = ({ entity, match }) => {
 }
 
 const handleY: TileColliderHandler = ({ entity, match }) => {
+  // hastigheten är uppåt
   if (entity.vel.y > 0) {
     if (entity.bounds.bottom > match.y1) {
       entity.obstruct(Side.bottom, match)
     }
+    // hastigheten är nedåt
   } else if (entity.vel.y < 0) {
+    console.log(match.tile)
+
     if (entity.bounds.top < match.y2) {
       entity.obstruct(Side.top, match)
     }

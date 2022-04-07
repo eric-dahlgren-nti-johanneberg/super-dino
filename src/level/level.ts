@@ -36,6 +36,7 @@ export class Level extends Scene {
 
     this.totalTime += gameContext.deltaTime
 
+    // flytta kameran till spelaren
     focusPlayer(this)
   }
 
