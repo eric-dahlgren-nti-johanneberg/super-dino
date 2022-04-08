@@ -53,5 +53,14 @@ export function setupKeyboard(target: EventTarget) {
     })
   })
 
+  input.addListener('KeyC', (keyState) => {
+    router.route((entity) => {
+      // Sario kan springa snabbt
+      if (entity instanceof Sario) {
+        entity.setCrouching(keyState === 1)
+      }
+    })
+  })
+
   return router
 }

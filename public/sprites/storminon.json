@@ -1,0 +1,9 @@
+{
+  "imageURL": "images/characters.gif",
+  "frames": [
+    {
+      "name": "idle",
+      "rect": [250, 47, 16, 32]
+    }
+  ]
+}

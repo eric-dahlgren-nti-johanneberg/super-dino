@@ -2,6 +2,7 @@ import { loadSario } from './sario'
 import { Entity } from '../entity'
 import { Dict } from '../../types'
 import { loadOnion } from './onion'
+import { loadStorMinon } from './storminon'
 
 export type EntityFactory = () => Entity
 
@@ -17,6 +18,7 @@ export async function loadEntities(): Promise<EntityFactoryDict> {
   await Promise.all([
     loadSario().then(addAs('sario')),
     loadOnion().then(addAs('onion')),
+    loadStorMinon().then(addAs('storminon')),
   ])
 
   return factories
