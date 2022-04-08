@@ -3,7 +3,7 @@ import { TileColliderHandler } from '../tile-collider'
 
 const handleX: TileColliderHandler = ({ entity, match }) => {
   if (entity.vel.x > 0) {
-    if (entity.bounds.right > match.x1 - 100) {
+    if (entity.bounds.right > match.x1) {
       entity.obstruct(Side.right, match)
     }
   } else if (entity.vel.x < 0) {
@@ -16,12 +16,11 @@ const handleX: TileColliderHandler = ({ entity, match }) => {
 const handleY: TileColliderHandler = ({ entity, match }) => {
   // hastigheten är uppåt
   if (entity.vel.y > 0) {
-    if (entity.bounds.bottom > match.y1) {
+    if (entity.bounds.bottom + 16 > match.y1) {
       entity.obstruct(Side.bottom, match)
     }
     // hastigheten är nedåt
   } else if (entity.vel.y < 0) {
-    console.log(match.tile)
 
     if (entity.bounds.top < match.y2) {
       entity.obstruct(Side.top, match)

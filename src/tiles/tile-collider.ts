@@ -23,6 +23,7 @@ export type TileColliderContext = {
 export type TileColliderHandler = (context: TileColliderContext) => void
 
 const handlers: Dict<TileColliderHandler[]> = {
+  grass: ground,
   ground,
   brick,
   coin,
@@ -62,8 +63,10 @@ export class TileCollider {
   checkY(entity: Entity, gameContext: GameContext, level: Level) {
     let y
     if (entity.vel.y > 0) {
+      // spelaren är påväg ner
       y = entity.bounds.bottom
     } else if (entity.vel.y < 0) {
+      // spelaren är påväg upp
       y = entity.bounds.top
     } else {
       return

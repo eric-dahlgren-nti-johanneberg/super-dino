@@ -11,10 +11,10 @@ function createEntityLayer(entities: Set<Entity>) {
     context.strokeStyle = 'red'
     entities.forEach((entity) => {
       context.strokeRect(
-        entity.bounds.left - camera.pos.x,
-        entity.bounds.top - camera.pos.y,
-        entity.size.x,
-        entity.size.y,
+        entity.bounds.left - camera.pos.x - 5,
+        entity.bounds.top - camera.pos.y - 5,
+        entity.size.x + 10,
+        entity.size.y + 10,
       )
     })
   }
@@ -37,7 +37,6 @@ function createTileCandidateLayer(tileResolver: TileResolver) {
     camera: Camera,
   ) {
     context.strokeStyle = 'blue'
-
     resolvedTiles.forEach(({ x, y }) => {
       context.strokeRect(
         x * tileSize - camera.pos.x,
@@ -52,9 +51,9 @@ function createTileCandidateLayer(tileResolver: TileResolver) {
 }
 
 export function createCollisionLayer(level: Level) {
-  const drawTileCandidates = level.tileCollider.resolvers.map(
+  /* const drawTileCandidates = level.tileCollider.resolvers.map(
     createTileCandidateLayer,
-  )
+  ) */
 
   const drawBoundingBoxes = createEntityLayer(level.entities)
 
@@ -62,9 +61,9 @@ export function createCollisionLayer(level: Level) {
     context: CanvasRenderingContext2D,
     camera: Camera,
   ) {
-    for (const draw of drawTileCandidates) {
+    /* for (const draw of drawTileCandidates) {
       draw(context, camera)
-    }
+    } */
     drawBoundingBoxes(context, camera)
   }
 }
