@@ -18,7 +18,7 @@ type TraitConstructor<T extends Trait> = new (...args: unknown[]) => T
 export class Entity {
   pos = new Vec2()
   vel = new Vec2()
-  size = new Vec2()
+  size = new Vec2(16, 16)
   offset = new Vec2()
   bounds = new BoundingBox(this.pos, this.size, this.offset)
   traits = new Map<Function, Trait>()
