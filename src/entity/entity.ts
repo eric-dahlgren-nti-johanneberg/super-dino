@@ -36,6 +36,7 @@ export class Entity {
     if (trait instanceof TraitClass) {
       return trait
     }
+    return
   }
 
   useTrait<T extends Trait>(
@@ -55,7 +56,7 @@ export class Entity {
     this.offset = level.camera.pos
   }
 
-  draw(context: CanvasRenderingContext2D) {}
+  draw(_context: CanvasRenderingContext2D) {}
 
   finalize() {
     this.events.emit(Trait.EVENT_TASK, this)

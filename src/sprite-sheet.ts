@@ -70,4 +70,26 @@ export class SpriteSheet {
   ) {
     this.draw(name, context, x * this.tileWidth, y * this.tileHeight)
   }
+
+  drawAnimation(
+    name: string,
+    context: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    distance: number,
+  ) {
+    const animation = this.animations.get(name)
+    if (!animation) {
+      throw new Error(`Animation not found: ${name}`)
+    }
+    this.drawTile(animation(distance), context, x, y)
+  }
+
+  getAnimation(name: string) {
+    const anim = this.animations.get(name)
+    if (!anim) {
+      throw new Error(`Animation not found: ${name}`)
+    }
+    return anim
+  }
 }

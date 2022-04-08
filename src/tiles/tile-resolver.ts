@@ -40,6 +40,7 @@ export class TileResolver {
       const y2 = (indexY + 1) * this.tileSize
       return { tile, x1, x2, y1, y2, indexX, indexY }
     }
+    return
   }
 
   searchByPosition(posX: number, posY: number) {

@@ -37,7 +37,6 @@ function createTileCandidateLayer(tileResolver: TileResolver) {
     camera: Camera,
   ) {
     context.strokeStyle = 'blue'
-
     resolvedTiles.forEach(({ x, y }) => {
       context.strokeRect(
         x * tileSize - camera.pos.x,
