@@ -4,6 +4,9 @@ import { Level } from '../level/level'
 import { Vec2 } from '../math'
 import { Trait } from '../traits/trait'
 
+/**
+ * Sparar senaste checkpointen för spelaren
+ */
 export class PlayerController extends Trait {
   checkpoint = new Vec2(0, 0)
 

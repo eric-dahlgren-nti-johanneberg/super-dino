@@ -15,7 +15,8 @@
     { "name": "pipe-insert-vert-left", "index": [0, 1] },
     { "name": "pipe-insert-vert-right", "index": [1, 1] },
     { "name": "pipe-vert-left", "index": [0, 2] },
-    { "name": "pipe-vert-right", "index": [1, 2] }
+    { "name": "pipe-vert-right", "index": [1, 2] },
+    { "name": "checkpoint-flag-top-left-1", "index": [3, 0] }
   ],
 
   "animations": []
