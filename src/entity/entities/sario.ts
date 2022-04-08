@@ -21,7 +21,7 @@ export class Sario extends Entity {
     super()
 
     this.go.dragFactor = SLOW_DRAG
-    this.size.set(16, 32)
+    this.size.set(16, 31)
     this.setTurboState(false)
   }
 
