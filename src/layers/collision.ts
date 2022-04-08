@@ -9,12 +9,13 @@ function createEntityLayer(entities: Set<Entity>) {
     camera: Camera,
   ) {
     context.strokeStyle = 'red'
+    context.lineWidth = 1
     entities.forEach((entity) => {
       context.strokeRect(
-        entity.bounds.left - camera.pos.x - 5,
-        entity.bounds.top - camera.pos.y - 5,
-        entity.size.x + 10,
-        entity.size.y + 10,
+        entity.bounds.left - camera.pos.x,
+        entity.bounds.top - camera.pos.y,
+        entity.size.x,
+        entity.size.y,
       )
     })
   }

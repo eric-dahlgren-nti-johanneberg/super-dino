@@ -1,10 +1,12 @@
 import { Entity } from '../entity'
 import { loadSpriteSheet } from '../../loaders/sprite'
 import { SpriteSheet } from '../../sprite-sheet'
-import { Velocity } from '../../traits/velocity'
+import { Physics } from '../../traits/physics'
+import { Solid } from '../../traits/solid'
 
 export class Onion extends Entity {
-  velocity = this.addTrait(new Velocity())
+  solid = this.addTrait(new Solid())
+  physics = this.addTrait(new Physics())
 
   constructor(private sprites: SpriteSheet) {
     super()

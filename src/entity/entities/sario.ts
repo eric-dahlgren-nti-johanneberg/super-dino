@@ -6,9 +6,15 @@ import { Jump } from '../../traits/jump'
 import { Physics } from '../../traits/physics'
 import { Solid } from '../../traits/solid'
 import { Animation } from '../../animation'
+import { Stomper } from '../../traits/stomper'
 
 const FAST_DRAG = 1 / 5000
 const SLOW_DRAG = 1 / 1000
+
+enum SarioState {
+  walking,
+  crouching,
+}
 
 export class Sario extends Entity {
   go = this.addTrait(new Go())
@@ -16,6 +22,10 @@ export class Sario extends Entity {
   // se till att sario faller och inte faller igenom block
   physics = this.addTrait(new Physics())
   solid = this.addTrait(new Solid())
+
+  stomper = this.addTrait(new Stomper())
+
+  state = SarioState.walking
 
   constructor(private sprites: SpriteSheet, private runAnimation: Animation) {
     super()
@@ -26,16 +36,24 @@ export class Sario extends Entity {
   }
 
   resolveAnimationFrame() {
-    if (this.go.distance > 0) {
-      /*  if (
-        (this.vel.x > 0 && this.go.dir < 0) ||
-        (this.vel.x < 0 && this.go.dir > 0)
-      ) {
-        return 'brake'
-      } */
+    switch (this.state) {
+      case SarioState.walking:
+        if (this.go.distance > 0) {
+          /*  if (
+            (this.vel.x > 0 && this.go.dir < 0) ||
+            (this.vel.x < 0 && this.go.dir > 0)
+          ) {
+            return 'brake'
+          } */
 
-      return this.runAnimation(this.go.distance)
+          return this.runAnimation(this.go.distance)
+        }
+
+        break
+      case SarioState.crouching:
+        return 'crouch'
     }
+
     return 'idle'
   }
 
@@ -51,6 +69,18 @@ export class Sario extends Entity {
 
   setTurboState(turboState: boolean) {
     this.go.dragFactor = turboState ? FAST_DRAG : SLOW_DRAG
+  }
+
+  setCrouching(crouching: boolean) {
+    if (crouching) {
+      this.size.set(48, 16)
+      this.bounds.offset.set(0, this.size.y)
+      this.state = SarioState.crouching
+    } else {
+      this.size.set(16, 31)
+      this.bounds.offset.set(0, 0)
+      this.state = SarioState.walking
+    }
   }
 }
 

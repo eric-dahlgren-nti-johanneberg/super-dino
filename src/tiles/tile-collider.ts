@@ -11,6 +11,7 @@ import { brick } from './tiles/brick'
 import { ground } from './tiles/ground'
 import { coin } from './tiles/coin'
 import { Dict } from '../types'
+import { checkpoint } from './tiles/checkpoint'
 
 export type TileColliderContext = {
   entity: Entity
@@ -27,6 +28,7 @@ const handlers: Dict<TileColliderHandler[]> = {
   ground,
   brick,
   coin,
+  checkpoint
 }
 
 export class TileCollider {
