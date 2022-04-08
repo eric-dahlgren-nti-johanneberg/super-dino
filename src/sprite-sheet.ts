@@ -57,7 +57,9 @@ export class SpriteSheet {
     if (!buffers) {
       throw new Error(`SpriteSheet.draw(): Sprite "${name}" not found`)
     }
-    context.drawImage(buffers[flip ? 1 : 0], x, y)
+    const buffer = buffers[flip ? 1 : 0]
+
+    context.drawImage(buffer, x, y)
   }
 
   drawTile(
