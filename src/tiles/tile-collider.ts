@@ -9,6 +9,7 @@ import {
 
 import { brick } from './tiles/brick'
 import { ground } from './tiles/ground'
+import { wall } from './tiles/wall'
 import { coin } from './tiles/coin'
 import { Dict } from '../types'
 
@@ -25,6 +26,7 @@ export type TileColliderHandler = (context: TileColliderContext) => void
 const handlers: Dict<TileColliderHandler[]> = {
   grass: ground,
   ground,
+  wall,
   brick,
   coin,
 }
