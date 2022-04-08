@@ -26,17 +26,13 @@ export class Sario extends Entity {
   }
 
   resolveAnimationFrame() {
-    if (this.jump.falling) {
-      return 'jump'
-    }
-
     if (this.go.distance > 0) {
-      if (
+      /*  if (
         (this.vel.x > 0 && this.go.dir < 0) ||
         (this.vel.x < 0 && this.go.dir > 0)
       ) {
         return 'brake'
-      }
+      } */
 
       return this.runAnimation(this.go.distance)
     }
@@ -44,7 +40,13 @@ export class Sario extends Entity {
   }
 
   draw(context: CanvasRenderingContext2D) {
-    this.sprites.draw('idle', context, 0, 0, this.go.heading < 0)
+    this.sprites.draw(
+      this.resolveAnimationFrame(),
+      context,
+      0,
+      0,
+      this.go.heading < 0,
+    )
   }
 
   setTurboState(turboState: boolean) {
