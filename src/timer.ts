@@ -4,7 +4,7 @@ export class Timer {
 
   constructor(private deltaTime = 1 / 60) {}
 
-  update = (dt: number) => {}
+  update = (_dt: number) => {}
 
   start() {
     this.enqueue()

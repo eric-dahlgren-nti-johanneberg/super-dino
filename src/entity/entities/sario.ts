@@ -17,6 +17,7 @@ export class Sario extends Entity {
   physics = this.addTrait(new Physics())
   solid = this.addTrait(new Solid())
 
+
   constructor(private sprites: SpriteSheet, private runAnimation: Animation) {
     super()
 
