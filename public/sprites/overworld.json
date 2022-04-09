@@ -7,6 +7,7 @@
     { "name": "ground", "index": [0, 0] },
     { "name": "grass", "index": [1, 0] },
     { "name": "bricks", "index": [2, 0] },
+    { "name": "wall", "index": [6, 0] },
     { "name": "chance", "index": [3, 0] },
     { "name": "chocolate", "index": [4, 0] },
     { "name": "coin", "index": [5, 0] },
