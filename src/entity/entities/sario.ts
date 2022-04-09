@@ -74,11 +74,14 @@ export class Sario extends Entity {
   setCrouching(crouching: boolean) {
     if (crouching) {
       this.size.set(48, 16)
-      this.bounds.offset.set(0, this.size.y)
+      this.bounds.offset.set(0, 0)
       this.state = SarioState.crouching
+
+      this.pos.set(this.pos.x - 16, this.pos.y)
     } else {
       this.size.set(16, 31)
       this.bounds.offset.set(0, 0)
+      this.pos.set(this.pos.x + 16, this.pos.y)
       this.state = SarioState.walking
     }
   }

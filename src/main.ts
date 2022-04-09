@@ -6,11 +6,16 @@ import { createColorLayer } from './layers/text'
 import { createCollisionLayer } from './layers/collision'
 import { Scene } from './level/Scene'
 import { SceneRunner } from './level/scene-runner'
-import { loadFont } from './loaders/font'
+import { Font, loadFont } from './loaders/font'
 import { createLevelLoader } from './loaders/level'
 import { createPlayerEnv, makePlayer } from './player'
 import { raise } from './raise'
 import { Timer } from './timer'
+import { createPlayerProgressLayer } from './layers/player-progress'
+import { Level } from './level/level'
+import { LevelSpecTrigger } from './loaders'
+import { Entity } from './entity/entity'
+import { Player } from './traits/player'
 
 const main = async (canvas: HTMLCanvasElement): Promise<void> => {
   const context = canvas.getContext('2d') || raise('Canvas not supported')
@@ -40,12 +45,30 @@ const main = async (canvas: HTMLCanvasElement): Promise<void> => {
 
     const level = await loadLevel(name)
 
+    level.events.listen(
+      Level.EVENT_TRIGGER,
+      (spec: LevelSpecTrigger, trigger: Entity, touches: Set<Entity>) => {
+        if (spec.type === 'goto') {
+          for (const entity of touches) {
+            if (entity.getTrait(Player)) {
+              runLevel(spec.name)
+              return
+            }
+          }
+        }
+      },
+    )
+
     sario.pos.set(0, 0)
     sario.vel.set(0, 0)
     level.entities.add(sario)
 
     const playerEnv = createPlayerEnv(sario)
     level.entities.add(playerEnv)
+
+    const progress = level.comp.layers.push(
+      createPlayerProgressLayer(font, level),
+    )
 
     level.comp.layers.push(createCollisionLayer(level))
     sceneRunner.addScene(level)
