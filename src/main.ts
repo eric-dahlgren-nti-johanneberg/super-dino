@@ -16,6 +16,8 @@ import { Level } from './level/level'
 import { LevelSpecTrigger } from './loaders'
 import { Entity } from './entity/entity'
 import { Player } from './traits/player'
+import { createCameraLayer } from './layers/camera'
+import { TimedScene } from './level/timed-scene'
 
 const main = async (canvas: HTMLCanvasElement): Promise<void> => {
   const context = canvas.getContext('2d') || raise('Canvas not supported')
@@ -59,6 +61,9 @@ const main = async (canvas: HTMLCanvasElement): Promise<void> => {
       },
     )
 
+    const progressLayer = createPlayerProgressLayer(font, level)
+    //const dashboardLayer = createDashboardLayer(font, level)
+
     sario.pos.set(0, 0)
     sario.vel.set(0, 0)
     level.entities.add(sario)
@@ -66,12 +71,17 @@ const main = async (canvas: HTMLCanvasElement): Promise<void> => {
     const playerEnv = createPlayerEnv(sario)
     level.entities.add(playerEnv)
 
-    const progress = level.comp.layers.push(
-      createPlayerProgressLayer(font, level),
-    )
+    const waitScreen = new TimedScene()
+    waitScreen.comp.layers.push(createColorLayer('black'))
+    // waitScreen.comp.layers.push(dashboardLayer)
+    waitScreen.comp.layers.push(progressLayer)
+    sceneRunner.addScene(waitScreen)
 
+    level.comp.layers.push()
     level.comp.layers.push(createCollisionLayer(level))
+    level.comp.layers.push(createCameraLayer(level.camera))
     sceneRunner.addScene(level)
+    
     sceneRunner.runNext()
   }
 

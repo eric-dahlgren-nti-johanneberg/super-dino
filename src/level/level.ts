@@ -53,6 +53,6 @@ function focusPlayer(level: Level) {
       flytta kameran till spelaren, men om spelaren är mellan 0 och 100 i x-kordinaten, stå stilla.
       Gör så att spelaren "springer in" i banan
     */
-    level.camera.pos.x = Math.max(0, player.pos.x - 100)
+    level.camera.pos.x = Math.max(0, Math.min(player.pos.x - 100))
   }
 }
