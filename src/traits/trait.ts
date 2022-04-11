@@ -40,4 +40,5 @@ export abstract class Trait {
   update(entity: Entity, gameContext: GameContext, level: Level) {}
   obstruct(entity: Entity, side: Side, match: TileResolverMatch) {}
   collides(us: Entity, them: Entity) {}
+  winAnimation(entity: Entity, side: Side, match: TileResolverMatch) {}
 }

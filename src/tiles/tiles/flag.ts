@@ -23,7 +23,7 @@ const handleY: TileColliderHandler = ({
 }) => {
   if (entity.vel.y > 0) {
     if (entity.bounds.bottom > match.y1) {
-      entity.obstruct(Side.bottom, match)
+      entity.winAnimation(Side.bottom, match)
     }
   } else if (entity.vel.y < 0) {
     if (entity.getTrait(Player)) {
@@ -32,7 +32,7 @@ const handleY: TileColliderHandler = ({
     }
 
     if (entity.bounds.top < match.y2) {
-      entity.obstruct(Side.top, match)
+      entity.winAnimation(Side.top, match)
     }
   }
 }
