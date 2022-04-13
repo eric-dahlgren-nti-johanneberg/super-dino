@@ -79,4 +79,10 @@ export class Entity {
       trait.collides(this, candidate)
     })
   }
+
+  winAnimation(side: Side, match: TileResolverMatch) {
+    this.traits.forEach((trait) => {
+      trait.winAnimation(this, side, match)
+    })
+  }
 }

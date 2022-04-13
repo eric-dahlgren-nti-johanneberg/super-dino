@@ -66,5 +66,50 @@
         "ranges": [[0, 1, 1, 3]]
       }
     ]
+  },
+
+  "flag-top": {
+    "tiles": [
+      {
+        "name": "flag-top-left",
+        "type": "ground",
+        "ranges": [[0, 0]]
+      },
+      {
+        "name": "flag-top-middle",
+        "type": "ground",
+        "ranges": [[1, 0]]
+      },
+      {
+        "name": "flag-top-right",
+        "type": "ground",
+        "ranges": [[2, 0]]
+      },
+      {
+        "name": "flag-bot-left",
+        "type": "ground",
+        "ranges": [[0, 1]]
+      },
+      {
+        "name": "flag-bot-middle",
+        "type": "ground",
+        "ranges": [[1, 1]]
+      },
+      {
+        "name": "flag-bot-right",
+        "type": "ground",
+        "ranges": [[2, 1]]
+      }
+    ]
+  },
+
+  "flag-pole": {
+    "tiles": [
+      {
+        "name": "flag-pole",
+        "type": "ground",
+        "ranges": [[0, 0]]
+      }
+    ]
   }
 }
