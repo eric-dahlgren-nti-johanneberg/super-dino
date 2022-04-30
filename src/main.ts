@@ -4,9 +4,9 @@ import { GameContext } from './game-context'
 import { createTextLayer } from './layers/color'
 import { createColorLayer } from './layers/text'
 import { createCollisionLayer } from './layers/collision'
-import { Scene } from './level/Scene'
+import { Scene } from './level/scene'
 import { SceneRunner } from './level/scene-runner'
-import { Font, loadFont } from './loaders/font'
+import { loadFont } from './loaders/font'
 import { createLevelLoader } from './loaders/level'
 import { createPlayerEnv, makePlayer } from './player'
 import { raise } from './raise'
@@ -65,8 +65,6 @@ const main = async (canvas: HTMLCanvasElement): Promise<void> => {
     const progressLayer = createPlayerProgressLayer(font, level)
     const scoreLayer = createScoreLayer(font, level)
 
-    sario.pos.set(3000, 0)
-    sario.vel.set(0, 0)
     level.entities.add(sario)
 
     const playerEnv = createPlayerEnv(sario)
@@ -77,9 +75,13 @@ const main = async (canvas: HTMLCanvasElement): Promise<void> => {
     waitScreen.comp.layers.push(progressLayer)
     sceneRunner.addScene(waitScreen)
 
+    
     level.comp.layers.push(scoreLayer)
-    level.comp.layers.push(createCollisionLayer(level))
-    // level.comp.layers.push(createCameraLayer(level.camera))
+    
+    // DEBUG
+    level.comp.layers.push(createCollisionLayer(level)) // collision boxes
+    // level.comp.layers.push(createCameraLayer(level.camera)) // camera position
+    
     sceneRunner.addScene(level)
 
     sceneRunner.runNext()

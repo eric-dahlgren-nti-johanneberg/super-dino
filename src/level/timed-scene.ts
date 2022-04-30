@@ -1,6 +1,7 @@
 import { GameContext } from '../game-context'
 import { Scene } from './scene'
 
+// scen som försvinner efter `countDown` sekunder
 export class TimedScene extends Scene {
   countDown = 2
 

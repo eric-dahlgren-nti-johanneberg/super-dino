@@ -6,7 +6,7 @@ import { Solid } from '../../traits/solid'
 import { Trait } from '../../traits/trait'
 import { Killable } from '../../traits/killable'
 import { Stomper } from '../../traits/stomper'
-import { PendulumMove } from '../../traits/PendulumMove'
+import { PendulumMove } from '../../traits/pendulum-move'
 
 enum StorMinonState {
   walking,
@@ -35,10 +35,22 @@ class StorMinonBehaviour extends Trait {
     if (this.state === StorMinonState.walking) {
       this.panic(us, them)
     } else if (this.state === StorMinonState.angry) {
+      us.useTrait(PendulumMove, (walk) => (walk.enabled = false))
       us.useTrait(Killable, (it) => it.kill())
-      us.vel.set(100, -200)
+      us.vel.set(100, -100)
       us.useTrait(Solid, (s) => (s.obstructs = false))
     }
+  }
+
+  handleNudge(us: Entity, them: Entity) {
+    const kill = () => {
+      const killable = them.getTrait(Killable)
+      if (killable) {
+        killable.kill()
+      }
+    }
+
+    kill()
   }
 
   panic(us: Entity, them: Entity) {
@@ -53,7 +65,8 @@ class StorMinonBehaviour extends Trait {
 export class StorMinon extends Entity {
   physics = this.addTrait(new Physics())
   solid = this.addTrait(new Solid())
-  walk = this.addTrait(new PendulumMove())
+  move = this.addTrait(new PendulumMove())
+  behaviour = this.addTrait(new StorMinonBehaviour())
 
   constructor(private sprites: SpriteSheet) {
     super()

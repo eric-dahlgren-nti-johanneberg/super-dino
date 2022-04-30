@@ -19,6 +19,7 @@ export class Player extends Trait {
 
   addCoins(count: number) {
     this.coins += count
+    this.score += 100
     while (this.coins >= COIN_LIFE_THRESHOLD) {
       this.addLives(1)
       this.coins -= COIN_LIFE_THRESHOLD

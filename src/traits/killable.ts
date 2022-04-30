@@ -27,6 +27,10 @@ export class Killable extends Trait {
           level.entities.delete(entity)
         })
       }
+    } else {
+      // kolla om den ska dö
+      if (entity.pos.y) {
+      }
     }
   }
 }

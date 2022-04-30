@@ -3,6 +3,9 @@ import { Compositor } from './compositor'
 import { EventEmitter } from '../event/emitter'
 import { GameContext } from '../game-context'
 
+/* 
+ * Abstrakt klass för scener  
+ */
 export class Scene {
   static EVENT_COMPLETE = Symbol('scene complete')
 
@@ -10,7 +13,7 @@ export class Scene {
   events = new EventEmitter()
 
   draw(gameContext: GameContext) {
-    // egentligen behövs inte `new Camera()`, men det behövs för typescript
+    // egentligen behövs inte `new Camera()` här, men det behövs för typescript
     this.comp.draw(gameContext.graphicsContext, new Camera())
   }
 

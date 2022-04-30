@@ -7,7 +7,13 @@ import { Matrix } from '../math'
 import { SpriteSheet } from '../sprite-sheet'
 import { TileResolverMatrix } from '../tiles/tile-resolver'
 import { loadSpriteSheet } from './sprite'
-import { LevelSpec, LevelSpecPatterns, LevelSpecTile, TileRange } from './types'
+import {
+  LevelSpec,
+  LevelSpecPatterns,
+  LevelSpecTile,
+  TileRange,
+  TileSpec,
+} from './types'
 
 function loadPattern(name: string) {
   return loadJSON<LevelSpecPatterns>(`/sprites/patterns/${name}.json`)
