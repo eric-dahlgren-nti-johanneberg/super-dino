@@ -7,6 +7,7 @@ import { Physics } from '../../traits/physics'
 import { Solid } from '../../traits/solid'
 import { Animation } from '../../animation'
 import { Stomper } from '../../traits/stomper'
+import { Killable } from '../../traits/killable'
 
 const FAST_DRAG = 1 / 5000
 const SLOW_DRAG = 1 / 1000
@@ -22,6 +23,7 @@ export class Sario extends Entity {
   // se till att sario faller och inte faller igenom block
   physics = this.addTrait(new Physics())
   solid = this.addTrait(new Solid())
+  killable = this.addTrait(new Killable())
 
   stomper = this.addTrait(new Stomper())
 

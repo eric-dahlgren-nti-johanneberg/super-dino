@@ -54,6 +54,7 @@ export class StorMinon extends Entity {
   physics = this.addTrait(new Physics())
   solid = this.addTrait(new Solid())
   walk = this.addTrait(new PendulumMove())
+  killable = this.addTrait(new Killable())
 
   constructor(private sprites: SpriteSheet) {
     super()

@@ -65,7 +65,7 @@ const main = async (canvas: HTMLCanvasElement): Promise<void> => {
     const progressLayer = createPlayerProgressLayer(font, level)
     const scoreLayer = createScoreLayer(font, level)
 
-    sario.pos.set(3000, 0)
+    sario.pos.set(0, 0)
     sario.vel.set(0, 0)
     level.entities.add(sario)
 

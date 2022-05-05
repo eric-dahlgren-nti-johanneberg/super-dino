@@ -5,11 +5,11 @@ import { Player } from '../../traits/player'
 const handleX: TileColliderHandler = ({ entity, match }) => {
   if (entity.vel.x > 0) {
     if (entity.bounds.right > match.x1) {
-      entity.obstruct(Side.right, match)
+      entity.winAnimation(Side.right, match)
     }
   } else if (entity.vel.x < 0) {
     if (entity.bounds.left < match.x2) {
-      entity.obstruct(Side.left, match)
+      entity.winAnimation(Side.left, match)
     }
   }
 }
@@ -19,7 +19,7 @@ const handleY: TileColliderHandler = ({
   match,
   resolver,
   gameContext,
-  level,
+  level
 }) => {
   if (entity.vel.y > 0) {
     if (entity.bounds.bottom > match.y1) {
