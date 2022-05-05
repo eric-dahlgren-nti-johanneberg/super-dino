@@ -2,7 +2,7 @@ import { Level } from '../level/level'
 import { Font } from '../loaders/font'
 import { findPlayers } from '../player'
 import { LevelTimer } from '../traits/level-timer'
-import { Player } from '../traits/Player'
+import { Player } from '../traits/player'
 
 function getPlayerTrait(level: Level) {
   for (const entity of findPlayers(level.entities)) {

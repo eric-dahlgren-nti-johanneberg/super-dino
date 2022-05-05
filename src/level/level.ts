@@ -3,7 +3,7 @@ import { Entity } from '../entity/entity'
 import { EntityCollider } from '../entity/collider'
 import { GameContext } from '../game-context'
 import { findPlayers } from '../player'
-import { Scene } from './Scene'
+import { Scene } from './scene'
 import { TileCollider } from '../tiles/tile-collider'
 
 export class Level extends Scene {

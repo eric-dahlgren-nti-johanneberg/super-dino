@@ -25,6 +25,7 @@ export class Sario extends Entity {
   solid = this.addTrait(new Solid())
   killable = this.addTrait(new Killable())
 
+  killable = this.addTrait(new Killable())
   stomper = this.addTrait(new Stomper())
 
   state = SarioState.walking
@@ -32,6 +33,7 @@ export class Sario extends Entity {
   constructor(private sprites: SpriteSheet, private runAnimation: Animation) {
     super()
 
+    this.killable.removeAfter = 0
     this.go.dragFactor = SLOW_DRAG
     this.size.set(16, 31)
     this.setTurboState(false)
@@ -75,15 +77,12 @@ export class Sario extends Entity {
 
   setCrouching(crouching: boolean) {
     if (crouching) {
-      this.size.set(48, 16)
-      this.bounds.offset.set(0, 0)
+      this.size.set(16, 16)
+      this.offset.set(16, 0)
       this.state = SarioState.crouching
-
-      this.pos.set(this.pos.x - 16, this.pos.y)
     } else {
+      this.offset.set(0, 0)
       this.size.set(16, 31)
-      this.bounds.offset.set(0, 0)
-      this.pos.set(this.pos.x + 16, this.pos.y)
       this.state = SarioState.walking
     }
   }

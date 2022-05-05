@@ -52,9 +52,9 @@ function createTileCandidateLayer(tileResolver: TileResolver) {
 }
 
 export function createCollisionLayer(level: Level) {
-  /* const drawTileCandidates = level.tileCollider.resolvers.map(
+  const drawTileCandidates = level.tileCollider.resolvers.map(
     createTileCandidateLayer,
-  ) */
+  )
 
   const drawBoundingBoxes = createEntityLayer(level.entities)
 
@@ -62,9 +62,9 @@ export function createCollisionLayer(level: Level) {
     context: CanvasRenderingContext2D,
     camera: Camera,
   ) {
-    /* for (const draw of drawTileCandidates) {
+    for (const draw of drawTileCandidates) {
       draw(context, camera)
-    } */
+    }
     drawBoundingBoxes(context, camera)
   }
 }

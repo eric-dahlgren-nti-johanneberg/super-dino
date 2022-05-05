@@ -16,7 +16,7 @@
           "ranges": [[0, 212, 13, 2]]
         },
         {
-          "name" : "wall",
+          "name": "wall",
           "type": "wall",
           "ranges": [[-1, 1, 0, 30]]
         },
