@@ -27,6 +27,8 @@ class StorMinonBehaviour extends Trait {
     if (stomper) {
       if (them.vel.y > us.vel.y) {
         this.handleStomp(us, them)
+      } else {
+        this.handleNudge(us, them)
       }
     }
   }

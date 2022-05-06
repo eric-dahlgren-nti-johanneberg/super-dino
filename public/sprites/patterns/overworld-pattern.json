@@ -72,32 +72,32 @@
     "tiles": [
       {
         "name": "flag-top-left",
-        "type": "ground",
+        "type": "flag",
         "ranges": [[0, 0]]
       },
       {
         "name": "flag-top-middle",
-        "type": "ground",
+        "type": "flag",
         "ranges": [[1, 0]]
       },
       {
         "name": "flag-top-right",
-        "type": "ground",
+        "type": "flag",
         "ranges": [[2, 0]]
       },
       {
         "name": "flag-bot-left",
-        "type": "ground",
+        "type": "flag",
         "ranges": [[0, 1]]
       },
       {
         "name": "flag-bot-middle",
-        "type": "ground",
+        "type": "flag",
         "ranges": [[1, 1]]
       },
       {
         "name": "flag-bot-right",
-        "type": "ground",
+        "type": "flag",
         "ranges": [[2, 1]]
       }
     ]
@@ -107,7 +107,7 @@
     "tiles": [
       {
         "name": "flag-pole",
-        "type": "ground",
+        "type": "flag",
         "ranges": [[0, 0]]
       }
     ]

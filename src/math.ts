@@ -19,7 +19,7 @@ export class Vec2 {
 }
 
 /**
- * en matris (mer som en grid), med hjälpfunktioner 
+ * en matris (mer som en grid), med hjälpfunktioner
  */
 export class Matrix<T> {
   private grid: T[][] = []
@@ -39,16 +39,19 @@ export class Matrix<T> {
   delete(x: number, y: number) {
     const col = this.grid[x]
     if (col) delete col[y]
-    console.log("how")
+    console.log('how')
   }
 
-  win(x: number, y:number) {
+/*   win(x: number, y: number) {
     const col = this.grid[x]
     let temp = col[y]
-    let temp2 = col[y+1]
-    if (col) col[y] = temp2; col[y+1] = temp 
-    console.log("how")
-  }
+    let temp2 = col[y + 1]
+    if (col) {   
+      col[y] = temp2
+    }
+    col[y + 1] = temp
+    console.log('how')
+  } */
 
   /** Hitta objekt inom givna gränser */
   *itemsInRange(left: number, top: number, right: number, bottom: number) {

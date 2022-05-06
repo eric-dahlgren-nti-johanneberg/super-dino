@@ -14,10 +14,11 @@ export class Killable extends Trait {
     })
   }
 
-  revive() {
+  revive(callback?: () => void) {
     this.queue(() => {
       this.dead = false
       this.deadTime = 0
+      callback?.()
     })
   }
 

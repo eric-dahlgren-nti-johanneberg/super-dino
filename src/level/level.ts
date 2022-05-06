@@ -47,7 +47,7 @@ export class Level extends Scene {
   pause() {}
 }
 
-function focusPlayer(level: Level) {
+export function focusPlayer(level: Level) {
   for (const player of findPlayers(level.entities)) {
     /* 
       flytta kameran till spelaren, men om spelaren är mellan 0 och 100 i x-kordinaten, stå stilla.

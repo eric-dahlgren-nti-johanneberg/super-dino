@@ -15,6 +15,7 @@ export type TileResolverMatrix = Matrix<LevelSpecTile>
 
 /**
  * håller en matris av alla tiles (block) för en given scen (level)
+ * Också funktioner för att hämta olika tiles beroende på dess position
  */
 export class TileResolver {
   constructor(public matrix: TileResolverMatrix, public tileSize = 16) {}

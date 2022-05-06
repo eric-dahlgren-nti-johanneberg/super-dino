@@ -29,6 +29,8 @@ export class Player extends Trait {
   }
 
   addLives(count: number) {
+    console.log('add life')
+
     this.lives += count
   }
 }

@@ -1,19 +1,18 @@
 import { createPlayerProgressLayer } from '../layers/player-progress'
 import { createColorLayer } from '../layers/text'
 import { Level } from '../level/level'
-import { SceneRunner } from '../level/scene-runner'
 import { TimedScene } from '../level/timed-scene'
 import { Font } from '../loaders/font'
 
-export const addProgressScreen = (
-  sceneRunner: SceneRunner,
+export const createProgressScreen = (
   font: Font,
   level: Level,
+  lives: number,
 ) => {
-  const progressLayer = createPlayerProgressLayer(font, level)
+  const progressLayer = createPlayerProgressLayer(font, level, lives)
 
   const waitScreen = new TimedScene()
   waitScreen.comp.layers.push(createColorLayer('black'))
-  waitScreen.comp.layers.push(progressLayer)
-  sceneRunner.addScene(waitScreen)
+  lives > 0 && waitScreen.comp.layers.push(progressLayer)
+  return waitScreen
 }

@@ -6,7 +6,8 @@ import { PlayerController } from './traits/player-controller'
 export function createPlayerEnv(playerEntity: Entity) {
   const playerEnv = new Entity()
   const playerControl = new PlayerController(playerEntity)
-  playerControl.checkpoint.set(16, 160)
+  
+  playerControl.checkpoint.set(3180, 160)
   playerEnv.addTrait(playerControl)
   playerEnv.addTrait(new LevelTimer())
   return playerEnv

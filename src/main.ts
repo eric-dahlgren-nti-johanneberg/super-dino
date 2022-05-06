@@ -18,7 +18,8 @@ import { Player } from './traits/player'
 // import { createCameraLayer } from './layers/camera'
 import { createScoreLayer } from './layers/score'
 import { PlayerController } from './traits/player-controller'
-import { addProgressScreen } from './screens/wait-screen'
+import { createProgressScreen } from './screens/wait-screen'
+import { GAME_WON } from './tiles/tiles/flag'
 
 const main = async (canvas: HTMLCanvasElement): Promise<void> => {
   const context = canvas.getContext('2d') || raise('Canvas not supported')
@@ -32,7 +33,7 @@ const main = async (canvas: HTMLCanvasElement): Promise<void> => {
   const sceneRunner = new SceneRunner()
 
   const sario = entityFactory.sario?.() || raise('no sario found')
-  makePlayer(sario, 'SARIO')
+  makePlayer(sario, 'Dino')
 
   const inputRouter = setupKeyboard(window)
   inputRouter.addReceiver(sario)
@@ -67,22 +68,63 @@ const main = async (canvas: HTMLCanvasElement): Promise<void> => {
     level.entities.add(sario)
 
     const playerEnv = createPlayerEnv(sario)
+
     level.entities.add(playerEnv)
 
-    addProgressScreen(sceneRunner, font, level)
+    const progress = createProgressScreen(
+      font,
+      level,
+      sario.getTrait(Player)?.lives || 0,
+    )
+    sceneRunner.addScene(progress)
+
     level.comp.layers.push(scoreLayer)
 
     // DEBUG
-    level.comp.layers.push(createCollisionLayer(level)) // collision boxes
+    // level.comp.layers.push(createCollisionLayer(level)) // collision boxes
     // level.comp.layers.push(createCameraLayer(level.camera)) // camera position
 
     sceneRunner.addScene(level)
     sceneRunner.runNext()
 
-    level.events.listen(PlayerController.KILLED, () => {
-      addProgressScreen(sceneRunner, font, level)
+    sario.events.process('win', () => console.log('win!'))
 
-      sceneRunner.addScene(level)
+    level.events.listen(PlayerController.KILLED, async () => {
+      const player = sario.getTrait(Player)
+      if (player) {
+        player.addLives(-1)
+        if (player.lives < 1) {
+          const gameOverScreen = new Scene()
+
+          gameOverScreen.comp.layers.push(createColorLayer('black'))
+          gameOverScreen.comp.layers.push(
+            createTextLayer(font, `GAME OVER`, 'CTRL + R TO RESTART'),
+          )
+          sceneRunner.addScene(gameOverScreen)
+          sceneRunner.runNext()
+        }
+      }
+    })
+
+    level.events.listen(PlayerController.REVIVED, async () => {
+      const player = sario.getTrait(Player)
+
+      if (player?.lives) {
+        const progress = createProgressScreen(font, level, player.lives)
+        sceneRunner.addScene(progress)
+        sceneRunner.addScene(level)
+        sceneRunner.runNext()
+      }
+    })
+
+    level.events.listen(GAME_WON, () => {
+      const gameOverScreen = new Scene()
+
+      gameOverScreen.comp.layers.push(createColorLayer('black'))
+      gameOverScreen.comp.layers.push(
+        createTextLayer(font, `YOU WIN!`, 'CTRL + R TO RESTART'),
+      )
+      sceneRunner.addScene(gameOverScreen)
       sceneRunner.runNext()
     })
   }

@@ -26,27 +26,33 @@ export function createScoreLayer(font: Font, level: Level) {
     const player = getPlayerTrait(level)
     if (player) {
       font.print(player.name, context, 16, line1)
-      font.print(String(player.score).padStart(6, '0'), context, 16, line2)
+      font.print(String(player.score).padStart(4, '0'), context, 16, line2)
 
       font.print(
         '@x' + String(player.coins).padStart(2, '0'),
         context,
-        96,
+        60,
         line2,
       )
-    }
 
-    font.print(`WORLD`, context, 152, line1)
-    font.print(level.name, context, 160, line2)
+      if (player.lives > 0) {
+        new Array(player.lives).fill(1).forEach((_, index) => {
+          font.printSpecial('heart', context, 180 + index * 16, line1)
+        })
+        new Array(3 - player.lives).fill(1).forEach((_, index) => {
+          font.printSpecial('sadheart', context, 180 + (2 - index) * 16, line1)
+        })
+      }
+    }
 
     const timer = getTimerTrait(level)
 
     if (timer) {
-      font.print('TIME', context, 208, line1)
+      font.print('TIME', context, 120, line1)
       font.print(
         String(Math.floor(timer.currentTime)).padStart(3, '0'),
         context,
-        216,
+        120,
         line2,
       )
     }

@@ -8,6 +8,9 @@ import { Solid } from '../../traits/solid'
 import { Animation } from '../../animation'
 import { Stomper } from '../../traits/stomper'
 import { Killable } from '../../traits/killable'
+import { Trait } from '../../traits/trait'
+import { GameContext } from '../../game-context'
+import { Level } from '../../level/level'
 
 const FAST_DRAG = 1 / 5000
 const SLOW_DRAG = 1 / 1000
@@ -15,6 +18,14 @@ const SLOW_DRAG = 1 / 1000
 enum SarioState {
   walking,
   crouching,
+}
+
+class SarioBehaviour extends Trait {
+  update(sario: Sario, gameContext: GameContext, level: Level): void {
+    if (sario.won) {
+      level.events.emit(Symbol('won'))
+    }
+  }
 }
 
 export class Sario extends Entity {
@@ -27,7 +38,10 @@ export class Sario extends Entity {
   killable = this.addTrait(new Killable())
   stomper = this.addTrait(new Stomper())
 
+  winnable = this.addTrait(new SarioBehaviour())
+
   state = SarioState.walking
+  won = false
 
   constructor(private sprites: SpriteSheet, private runAnimation: Animation) {
     super()

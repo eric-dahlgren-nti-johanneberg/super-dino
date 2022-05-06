@@ -1,7 +1,6 @@
 import { Level } from '../level/level'
 import { Font } from '../loaders/font'
 import { findPlayers } from '../player'
-import { raise } from '../raise'
 import { Player } from '../traits/player'
 
 function getPlayer(level: Level) {
@@ -11,26 +10,28 @@ function getPlayer(level: Level) {
   throw new Error('player not found')
 }
 
-export function createPlayerProgressLayer(font: Font, level: Level) {
+export function createPlayerProgressLayer(
+  font: Font,
+  level: Level,
+  lives: number,
+) {
   const size = font.size
 
-  const spriteBuffer = document.createElement('canvas')
-  spriteBuffer.width = 32
-  spriteBuffer.height = 32
-
-  const spriteBufferContext =
-    spriteBuffer.getContext('2d') || raise('Canvas not supported')
-
   return function drawPlayerProgress(context: CanvasRenderingContext2D) {
-    const entity = getPlayer(level)
     font.print(`WORLD ${level.name}`, context, size * 12, size * 12)
 
-    spriteBufferContext.clearRect(0, 0, spriteBuffer.width, spriteBuffer.height)
-    entity.draw(spriteBufferContext)
-    context.drawImage(spriteBuffer, size * 12, size * 15)
-
-    const lifeCount = String(entity.getTrait(Player)?.lives).padStart(2, ' ')
-    console.log(lifeCount)
-    font.print(`x ${lifeCount}`, context, size * 16, size * 16)
+    if (lives > 0) {
+      new Array(lives).fill(1).forEach((_, index) => {
+        font.printSpecial('heart', context, size * 13.5 + index * 16, size * 16)
+      })
+      new Array(3 - lives).fill(1).forEach((_, index) => {
+        font.printSpecial(
+          'sadheart',
+          context,
+          size * 13.5 + (2 - index) * 16,
+          size * 16,
+        )
+      })
+    }
   }
 }
