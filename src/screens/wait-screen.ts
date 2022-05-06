@@ -1,5 +1,5 @@
 import { createPlayerProgressLayer } from '../layers/player-progress'
-import { createColorLayer } from '../layers/text'
+import { createColorLayer } from '../layers/color'
 import { Level } from '../level/level'
 import { TimedScene } from '../level/timed-scene'
 import { Font } from '../loaders/font'

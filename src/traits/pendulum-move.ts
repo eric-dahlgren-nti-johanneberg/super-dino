@@ -3,7 +3,7 @@ import { Trait } from './trait'
 
 export class PendulumMove extends Trait {
   speed = -30
-  enabled = true
+  enabled = false
 
   update(ent: Entity) {
     if (this.enabled) {
