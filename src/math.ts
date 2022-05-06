@@ -39,6 +39,15 @@ export class Matrix<T> {
   delete(x: number, y: number) {
     const col = this.grid[x]
     if (col) delete col[y]
+    console.log("how")
+  }
+
+  win(x: number, y:number) {
+    const col = this.grid[x]
+    let temp = col[y]
+    let temp2 = col[y+1]
+    if (col) col[y] = temp2; col[y+1] = temp 
+    console.log("how")
   }
 
   /** Hitta objekt inom givna gränser */

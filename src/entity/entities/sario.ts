@@ -23,7 +23,6 @@ export class Sario extends Entity {
   // se till att sario faller och inte faller igenom block
   physics = this.addTrait(new Physics())
   solid = this.addTrait(new Solid())
-  killable = this.addTrait(new Killable())
 
   killable = this.addTrait(new Killable())
   stomper = this.addTrait(new Stomper())

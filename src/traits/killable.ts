@@ -15,8 +15,10 @@ export class Killable extends Trait {
   }
 
   revive() {
-    this.dead = false
-    this.deadTime = 0
+    this.queue(() => {
+      this.dead = false
+      this.deadTime = 0
+    })
   }
 
   update(entity: Entity, { deltaTime }: GameContext, level: Level) {

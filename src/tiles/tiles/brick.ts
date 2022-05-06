@@ -17,9 +17,7 @@ const handleX: TileColliderHandler = ({ entity, match }) => {
 const handleY: TileColliderHandler = ({
   entity,
   match,
-  resolver,
-  gameContext,
-  level,
+  resolver
 }) => {
   if (entity.vel.y > 0) {
     if (entity.bounds.bottom > match.y1) {
