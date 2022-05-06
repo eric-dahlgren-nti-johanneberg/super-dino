@@ -40,6 +40,7 @@ export function createScoreLayer(font: Font, level: Level) {
     font.print(level.name, context, 160, line2)
 
     const timer = getTimerTrait(level)
+
     if (timer) {
       font.print('TIME', context, 208, line1)
       font.print(

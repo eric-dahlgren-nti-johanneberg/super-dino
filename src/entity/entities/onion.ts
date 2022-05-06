@@ -34,7 +34,6 @@ class OnionBehaviour extends Trait {
   // rör sidan
   handleNudge(us: Entity, them: Entity) {
     const killable = them.getTrait(Killable)
-    console.log("nudge", killable)
     if (killable && !killable.dead) {
       killable.kill()
     }
