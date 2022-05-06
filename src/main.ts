@@ -8,17 +8,17 @@ import { Scene } from './level/scene'
 import { SceneRunner } from './level/scene-runner'
 import { loadFont } from './loaders/font'
 import { createLevelLoader } from './loaders/level'
-import { createPlayerEnv, makePlayer } from './player'
+import { createPlayerEnv, findPlayers, makePlayer } from './player'
 import { raise } from './raise'
 import { Timer } from './timer'
-import { createPlayerProgressLayer } from './layers/player-progress'
 import { Level } from './level/level'
 import { LevelSpecTrigger } from './loaders'
 import { Entity } from './entity/entity'
 import { Player } from './traits/player'
 // import { createCameraLayer } from './layers/camera'
-import { TimedScene } from './level/timed-scene'
 import { createScoreLayer } from './layers/score'
+import { PlayerController } from './traits/player-controller'
+import { addProgressScreen } from './screens/wait-screen'
 
 const main = async (canvas: HTMLCanvasElement): Promise<void> => {
   const context = canvas.getContext('2d') || raise('Canvas not supported')
@@ -62,7 +62,6 @@ const main = async (canvas: HTMLCanvasElement): Promise<void> => {
       },
     )
 
-    const progressLayer = createPlayerProgressLayer(font, level)
     const scoreLayer = createScoreLayer(font, level)
 
     level.entities.add(sario)
@@ -70,21 +69,22 @@ const main = async (canvas: HTMLCanvasElement): Promise<void> => {
     const playerEnv = createPlayerEnv(sario)
     level.entities.add(playerEnv)
 
-    const waitScreen = new TimedScene()
-    waitScreen.comp.layers.push(createColorLayer('black'))
-    waitScreen.comp.layers.push(progressLayer)
-    sceneRunner.addScene(waitScreen)
-
-    
+    addProgressScreen(sceneRunner, font, level)
     level.comp.layers.push(scoreLayer)
-    
+
     // DEBUG
     level.comp.layers.push(createCollisionLayer(level)) // collision boxes
     // level.comp.layers.push(createCameraLayer(level.camera)) // camera position
-    
-    sceneRunner.addScene(level)
 
+    sceneRunner.addScene(level)
     sceneRunner.runNext()
+
+    level.events.listen(PlayerController.KILLED, () => {
+      addProgressScreen(sceneRunner, font, level)
+
+      sceneRunner.addScene(level)
+      sceneRunner.runNext()
+    })
   }
 
   const timer = new Timer()

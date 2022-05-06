@@ -30,6 +30,7 @@ export function createPlayerProgressLayer(font: Font, level: Level) {
     context.drawImage(spriteBuffer, size * 12, size * 15)
 
     const lifeCount = String(entity.getTrait(Player)?.lives).padStart(2, ' ')
+    console.log(lifeCount)
     font.print(`x ${lifeCount}`, context, size * 16, size * 16)
   }
 }
