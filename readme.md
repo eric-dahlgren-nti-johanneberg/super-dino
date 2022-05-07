@@ -1,4 +1,4 @@
-# Super Sario Brothers
+# Super Dino Brothers
 Ett spel som härmar `Super Mario Brothers`, men som är byggt i webbläsaren.
 
 ## Struktur och språk
@@ -7,4 +7,4 @@ Spelet är byggt på ett `ECS` (`E`ntity `C`omponent `S`ystem), och renderas i w
 ## Team
 - Amanda Birkedahl (@amanda-birkedahl-nti-johanneberg)
 - Eric Dahlgren (@eriyc)
-- Joel Lundhag (@ghostofsteel)
+- Joel Lundhag (@ghostofsteel) (han var inloggad som jonna hela tiden 🤦)
