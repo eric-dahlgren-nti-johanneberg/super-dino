@@ -43,19 +43,6 @@ export function createScoreLayer(font: Font, level: Level) {
           font.printSpecial('sadheart', context, 180 + (2 - index) * 16, line1)
         })
       }
-
-      font.print(
-        `x${level.camera.pos.x.toFixed(2)}`,
-        context,
-        100,
-        line2 + line1,
-      )
-      font.print(
-        `x${Math.floor((level.camera.pos.x + 100) / 16)}`,
-        context,
-        100,
-        line2 + line1 * 2,
-      )
     }
 
     const timer = getTimerTrait(level)

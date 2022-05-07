@@ -32,7 +32,7 @@ export function setupKeyboard(target: EventTarget) {
     })
   })
 
-  input.addListener('KeyZ', (pressed) => {
+  input.addListener('Space', (pressed) => {
     if (pressed) {
       router.route((entity) => {
         entity.useTrait(Jump, (jump) => jump.start())
