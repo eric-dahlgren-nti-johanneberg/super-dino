@@ -1,4 +1,4 @@
-import { Sario } from '../entity/entities/sario'
+import { Dino } from '../entity/entities/dino'
 import { Entity } from '../entity/entity'
 import { InputRouter } from './input-router'
 import { Keyboard } from './keyboard'
@@ -47,17 +47,8 @@ export function setupKeyboard(target: EventTarget) {
   input.addListener('KeyX', (keyState) => {
     router.route((entity) => {
       // Sario kan springa snabbt
-      if (entity instanceof Sario) {
+      if (entity instanceof Dino) {
         entity.setTurboState(keyState === 1)
-      }
-    })
-  })
-
-  input.addListener('KeyC', (keyState) => {
-    router.route((entity) => {
-      // Sario kan springa snabbt
-      if (entity instanceof Sario) {
-        entity.setCrouching(keyState === 1)
       }
     })
   })

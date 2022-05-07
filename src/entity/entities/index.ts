@@ -1,4 +1,4 @@
-import { loadSario } from './sario'
+import { loadDino } from './dino'
 import { Entity } from '../entity'
 import { Dict } from '../../types'
 import { loadOnion } from './onion'
@@ -16,7 +16,7 @@ export async function loadEntities(): Promise<EntityFactoryDict> {
   }
 
   await Promise.all([
-    loadSario().then(addAs('sario')),
+    loadDino().then(addAs('sario')),
     loadOnion().then(addAs('onion')),
     loadStorMinon().then(addAs('storminon')),
   ])

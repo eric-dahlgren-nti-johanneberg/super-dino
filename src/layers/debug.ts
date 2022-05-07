@@ -83,3 +83,5 @@ export function createCameraLayer(cameraToDraw: Camera) {
     )
   }
 }
+
+export const createDebugLayer = () => {}

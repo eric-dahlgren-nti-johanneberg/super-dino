@@ -20,11 +20,12 @@ export class Entity {
   vel = new Vec2()
   size = new Vec2(16, 16)
   offset = new Vec2()
-  bounds = new BoundingBox(this.pos, this.size, this.offset)
   traits = new Map<Function, Trait>()
   lifetime = 0
   sounds = new Set<string>()
   events = new EventBuffer()
+
+  bounds = new BoundingBox(this.pos, this.size, this.offset)
 
   addTrait<T extends Trait>(trait: T) {
     this.traits.set(trait.constructor, trait)
