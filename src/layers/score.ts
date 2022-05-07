@@ -51,7 +51,7 @@ export function createScoreLayer(font: Font, level: Level) {
         line2 + line1,
       )
       font.print(
-        `x${Math.floor(level.camera.pos.x / 16)}`,
+        `x${Math.floor((level.camera.pos.x + 100) / 16)}`,
         context,
         100,
         line2 + line1 * 2,
